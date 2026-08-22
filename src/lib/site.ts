@@ -50,9 +50,13 @@ export const site = {
   ],
 } as const;
 
+/**
+ * Header navigation. /work is deliberately absent — the page stays live, is
+ * linked from the footer and the hero, and remains in the sitemap; it is just
+ * not carried in the top bar.
+ */
 export const nav = [
   { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
   { label: "Process", href: "/process" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },

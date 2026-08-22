@@ -7,6 +7,7 @@ import { Hero } from "@/components/home/hero";
 import { ServicesScrub } from "@/components/home/services-scrub";
 import { ProcessTrack } from "@/components/home/process-track";
 import { TechMarquee } from "@/components/home/tech-marquee";
+import { Comparison } from "@/components/home/comparison";
 import { Engagement } from "@/components/home/engagement";
 import { Faq } from "@/components/home/faq";
 import { Location } from "@/components/home/location";
@@ -28,9 +29,10 @@ export default function HomePage() {
       <ServicesScrub index="01" />
       <ProcessTrack index="02" />
       <TechMarquee />
-      <Engagement index="03" />
-      <Faq items={faqs} index="04" />
-      <Location index="05" />
+      <Comparison index="03" />
+      <Engagement index="04" />
+      <Faq items={faqs} index="05" />
+      <Location index="06" />
       <Cta />
     </>
   );

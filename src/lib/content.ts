@@ -359,3 +359,64 @@ export const stats = [
   { value: "94%", label: "Client retention" },
   { value: "2.1yr", label: "Average engagement" },
 ];
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * Comparison rows for the "why us" section.
+ *
+ * Written as concrete, checkable differences rather than adjectives — every
+ * `ours` value is something a prospect can hold us to in week one, and every
+ * `theirs` value is a specific practice, not a slur. A comparison table that
+ * only flatters one side reads as marketing and persuades nobody.
+ */
+export const comparison = [
+  {
+    criterion: "Who writes your code",
+    ours: "The engineers you meet on the first call.",
+    theirs: "A delivery team you are introduced to after signing.",
+  },
+  {
+    criterion: "Day-to-day contact",
+    ours: "A shared Slack channel with the people building it.",
+    theirs: "An account manager relaying messages in both directions.",
+  },
+  {
+    criterion: "Who owns the code",
+    ours: "You do, from the first commit. No licence, no lock-in.",
+    theirs: "Often gated behind a retainer or a proprietary CMS layer.",
+  },
+  {
+    criterion: "SEO recommendations",
+    ours: "Implemented by the same team that built the site.",
+    theirs: "Delivered as a monthly PDF for your developers to action.",
+  },
+  {
+    criterion: "How you get an estimate",
+    ours: "Fixed after a paid discovery, with the scope written down.",
+    theirs: "Quoted before anyone has read your codebase.",
+  },
+  {
+    criterion: "Timezone overlap",
+    ours: "Our afternoon covers London and the US East Coast.",
+    theirs: "A full working day of handoffs between replies.",
+  },
+  {
+    criterion: "After launch",
+    ours: "30 days of fixes included, then handover or retainer — your call.",
+    theirs: "Support folded into an ongoing contract you cannot exit.",
+  },
+  {
+    criterion: "When the project is a bad idea",
+    ours: "You hear it in week one, before you have spent anything.",
+    theirs: "Scope quietly grows until it fills the budget.",
+  },
+];
+
+/**
+ * Stated plainly because it is true, and because a page that claims to win on
+ * every axis is not credible. This is the same principle as the "say the
+ * unwelcome thing early" line on /about.
+ */
+export const comparisonCaveat =
+  "Where a larger firm genuinely wins: if you need forty engineers next quarter, a 24/7 follow-the-sun support desk, or a procurement process that requires a thousand-person vendor, hire one. We would rather tell you now than six weeks into a discovery.";
