@@ -6,11 +6,12 @@ import { site, whatsappHref } from "@/lib/site";
 /**
  * WhatsApp glyph, drawn to take `currentColor` rather than the brand green.
  *
- * The site runs on a neutral greyscale backdrop with one cobalt accent, and a
- * saturated #25D366 badge dropped into it reads as a third-party widget
- * bolted on rather than part of the design. Taking currentColor lets it
- * inherit the surface it sits on and work in both themes; the shape is what
- * makes it recognisable, not the colour.
+ * The site runs on a neutral greyscale backdrop, and a saturated #25D366
+ * badge dropped into it reads as a third-party widget bolted on rather than
+ * part of the design. The glyph is set in the same greys as body text and
+ * lifts to full contrast on hover, so it behaves like every other control on
+ * the page. Taking currentColor means one asset covers both themes; the shape
+ * is what makes it recognisable, not the colour.
  */
 export function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -42,28 +43,33 @@ export function WhatsAppLink({
       rel="noopener noreferrer"
       className={`group inline-flex items-center gap-2.5 transition-colors duration-300 hover:text-bright ${className}`}
     >
-      <WhatsAppIcon className="h-[1.15em] w-auto shrink-0 text-cobalt-lift" />
+      <WhatsAppIcon className="h-[1.15em] w-auto shrink-0 text-muted transition-colors duration-300 group-hover:text-bright" />
       <span>{label ?? site.whatsapp.display}</span>
     </a>
   );
 }
 
 /**
- * Floating enquiry button.
+ * Floating enquiry button — fixed bottom-right, present on every route.
  *
- * Held back until the hero is behind the reader — a launcher that covers
- * content before anyone has read a word is the thing people close rather than
- * tap. Sits below the select popup's stacking layer so it can never overlap an
- * open dropdown.
+ * Mounted once in the root layout, so it survives navigation rather than
+ * remounting per page. It is visible from first paint rather than gated on
+ * scroll: a launcher that only appears part-way down a page reads as missing
+ * on short pages and on anything the reader has not scrolled yet.
+ *
+ * Collapsed it is a plain circle; the label expands on hover with the icon
+ * held on the right. It sits below the select popup's stacking layer so it can
+ * never cover an open dropdown, and it is nudged up on small screens to clear
+ * mobile browser chrome.
  */
 export function WhatsAppFloat() {
-  const [shown, setShown] = useState(false);
+  const [ready, setReady] = useState(false);
 
+  // One frame before fading in, so the entrance plays instead of the button
+  // being painted in place on load.
   useEffect(() => {
-    const onScroll = () => setShown(window.scrollY > window.innerHeight * 0.6);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const id = requestAnimationFrame(() => setReady(true));
+    return () => cancelAnimationFrame(id);
   }, []);
 
   return (
@@ -72,19 +78,16 @@ export function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Message us on WhatsApp at ${site.whatsapp.display}`}
-      className={`glass glass-edge group fixed bottom-5 right-5 z-40 flex items-center gap-0 overflow-hidden rounded-full p-3.5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:gap-2.5 sm:bottom-7 sm:right-7 ${
-        shown
-          ? "pointer-events-auto translate-y-0 opacity-100"
-          : "pointer-events-none translate-y-4 opacity-0"
+      className={`glass glass-edge group fixed bottom-6 right-5 z-40 flex items-center gap-0 overflow-hidden rounded-full p-3.5 transition-[opacity,transform,gap] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:gap-2.5 sm:bottom-7 sm:right-7 ${
+        ready ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
       }`}
     >
-      <WhatsAppIcon className="h-6 w-6 shrink-0 text-cobalt-lift" />
-
-      {/* Label expands on hover only; collapsed it is a plain circle, so the
-          button never sits over content as a wide slab. */}
+      {/* Label first, icon on the right. */}
       <span className="max-w-0 whitespace-nowrap font-display text-[0.88rem] font-medium tracking-tight text-bright opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:max-w-[10rem] group-hover:opacity-100">
         Chat on WhatsApp
       </span>
+
+      <WhatsAppIcon className="h-6 w-6 shrink-0 text-body transition-colors duration-300 group-hover:text-bright" />
     </a>
   );
 }
