@@ -25,7 +25,7 @@ export function SiteFooter() {
           {/* Identity + NAP. This address block is the canonical NAP —
               it must match the Google Business Profile character for character. */}
           <div className="flex flex-col gap-5">
-            <AlifMark className="h-8 w-auto text-cobalt-lift" />
+            <AlifMark className="h-9 w-auto text-cobalt-lift" />
             <p className="max-w-xs text-[0.95rem] leading-relaxed text-body">
               A development studio in Lahore building web platforms, mobile
               apps and search programmes for clients across four markets.
