@@ -207,7 +207,7 @@ export function SelectField({
           id={listId}
           role="listbox"
           aria-labelledby={`${id}-label`}
-          className={`popover absolute z-50 max-h-64 w-full overflow-y-auto overscroll-contain rounded-xl p-1.5 ${
+          className={`popover glass-edge scroll-slim absolute z-50 max-h-64 w-full overflow-y-auto overscroll-contain rounded-xl p-1.5 ${
             dropUp ? "bottom-full mb-2" : "top-full mt-2"
           }`}
         >
@@ -230,7 +230,7 @@ export function SelectField({
                 }}
                 className={`flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-[0.92rem] transition-colors duration-150 ${
                   active
-                    ? "bg-[var(--line)] text-bright"
+                    ? "bg-[var(--glass-bg-strong)] text-bright"
                     : "text-body"
                 }`}
               >

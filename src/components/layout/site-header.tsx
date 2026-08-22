@@ -61,7 +61,7 @@ export function SiteHeader() {
           <div
             className={`flex h-[60px] items-center justify-between gap-4 rounded-full px-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:px-4 ${
               scrolled || open
-                ? "glass glass-edge"
+                ? "glass-nav glass-edge"
                 : "border border-transparent bg-transparent"
             }`}
           >

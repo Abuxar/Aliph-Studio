@@ -68,9 +68,14 @@
   --glass-shadow: 0 8px 32px -8px rgba(10, 16, 32, 0.14),
     0 2px 8px -2px rgba(10, 16, 32, 0.06);
   --glass-highlight: rgba(255, 255, 255, 0.9);
-  /* Popovers overlay content rather than the background, so they need to be
-     near-opaque — a 55% panel over body copy is unreadable both ways. */
-  --popover-bg: rgba(247, 249, 252, 0.97);
+  /* Popovers overlay content, so they carry a heavier blur than a panel.
+     Legibility here comes from blur radius, not opacity: at 30px the text
+     behind dissolves into a wash, so the surface can stay translucent and
+     still read. */
+  --popover-bg: rgba(250, 251, 253, 0.62);
+  /* Tinted with the ground, not white: a nav bar reads as a slice of the
+     page surface rather than as a floating card. */
+  --nav-bg: rgba(238, 241, 247, 0.72);
   --spotlight: rgba(10, 16, 32, 0.07);
 
   /* Ambient depth field — neutral, not coloured. The background film
@@ -114,7 +119,8 @@
   --glass-border: rgba(255, 255, 255, 0.11);
   --glass-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6);
   --glass-highlight: rgba(255, 255, 255, 0.16);
-  --popover-bg: rgba(19, 25, 35, 0.97);
+  --popover-bg: rgba(16, 22, 32, 0.58);
+  --nav-bg: rgba(6, 8, 15, 0.68);
   --spotlight: rgba(255, 255, 255, 0.07);
 
   --aurora-1: rgba(255, 255, 255, 0.07);
@@ -246,12 +252,47 @@ p { text-wrap: pretty; }
 }
 
 /* Overlay surface: same frosted treatment, but opaque enough to read over. */
+/* The nav is fixed over scrolling content, so it needs more coverage than a
+   panel sitting on the background — at panel opacity, body copy passing
+   underneath reads straight through the bar and collides with the links. */
+@utility glass-nav {
+  background: var(--nav-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: var(--glass-shadow);
+  isolation: isolate;
+}
+
 @utility popover {
   background: var(--popover-bg);
-  border: 1px solid var(--line-strong);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  /* Deliberately the heaviest blur in the system — this is the only surface
+     that sits over live content rather than over the background. */
+  backdrop-filter: blur(30px) saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
   box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.45);
+  isolation: isolate;
+}
+
+/* Thin scrollbar so a long list does not put a chunky OS-chrome bar
+   through the middle of a glass panel. */
+@utility scroll-slim {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+.scroll-slim::-webkit-scrollbar {
+  width: 6px;
+}
+.scroll-slim::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scroll-slim::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 99px;
+}
+.scroll-slim::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
 
 @utility glass-strong {
