@@ -57,7 +57,15 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" disabled={pending} arrow={!pending} className="w-full sm:w-auto">
+    <Button
+      type="submit"
+      disabled={pending}
+      arrow={!pending}
+      /* `w-auto` alone does nothing here: as a flex item in a column, the
+         button stretches across the cross axis whatever its width. It needs
+         self-start to actually size to its content. */
+      className="w-full sm:w-fit sm:self-start"
+    >
       {pending ? "Sending…" : "Send enquiry"}
     </Button>
   );
