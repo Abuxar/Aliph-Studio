@@ -53,11 +53,20 @@ export const site = {
     prefill: "Hi Aliph Studio - I would like to discuss a project.",
   },
 
+  /**
+   * These URLs feed the footer row, the reviews page and the `sameAs` array
+   * in the organisation schema, which is how Google ties this site to the
+   * profiles as one entity. A URL that 404s weakens that link rather than
+   * strengthening it.
+   *
+   * facebook is confirmed. The others are still assumed handles — verify each
+   * one resolves before launch, or drop it.
+   */
   social: {
     linkedin: "https://www.linkedin.com/company/aliph-studio",
     github: "https://github.com/Abuxar",
     instagram: "https://www.instagram.com/aliph.studio",
-    facebook: "https://www.facebook.com/aliphstudio",
+    facebook: "https://www.facebook.com/aliph.studio",
   },
 
   /** Markets we actively sell into — drives the "where we work" section. */

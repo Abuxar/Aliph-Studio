@@ -9,6 +9,11 @@
  * Deliberately CSS, not canvas: three composited layers cost far less than a
  * per-frame paint, and the whole thing is inert under reduced-motion.
  *
+ * This is the ONLY background motion most phone visitors will see — mobile
+ * browsers commonly block video autoplay — so it has to carry the effect on
+ * its own rather than merely assist the film. Hence the visible opacity and
+ * the wide drift: a whisper here reads as a static page.
+ *
  * Colour only — no grid overlay. The blobs alone give the glass something to
  * refract without imposing a visible structure on every page.
  */
@@ -21,7 +26,7 @@ export function Aurora() {
     >
       <div
         data-aurora
-        className="absolute -left-[18vw] -top-[22vh] h-[62vh] w-[62vw] rounded-full blur-[110px] animate-[aurora-drift-a_26s_ease-in-out_infinite]"
+        className="absolute -left-[18vw] -top-[22vh] h-[62vh] w-[62vw] rounded-full blur-[80px] animate-[aurora-drift-a_18s_ease-in-out_infinite]"
         style={{
           background:
             "radial-gradient(closest-side, var(--aurora-1), transparent 72%)",
@@ -29,7 +34,7 @@ export function Aurora() {
       />
       <div
         data-aurora
-        className="absolute -right-[14vw] top-[8vh] h-[56vh] w-[54vw] rounded-full blur-[120px] animate-[aurora-drift-b_32s_ease-in-out_infinite]"
+        className="absolute -right-[14vw] top-[8vh] h-[56vh] w-[54vw] rounded-full blur-[85px] animate-[aurora-drift-b_23s_ease-in-out_infinite]"
         style={{
           background:
             "radial-gradient(closest-side, var(--aurora-2), transparent 72%)",
@@ -37,7 +42,7 @@ export function Aurora() {
       />
       <div
         data-aurora
-        className="absolute bottom-[-18vh] left-[22vw] h-[52vh] w-[58vw] rounded-full blur-[130px] animate-[aurora-drift-c_38s_ease-in-out_infinite]"
+        className="absolute bottom-[-18vh] left-[22vw] h-[52vh] w-[58vw] rounded-full blur-[90px] animate-[aurora-drift-c_28s_ease-in-out_infinite]"
         style={{
           background:
             "radial-gradient(closest-side, var(--aurora-3), transparent 72%)",

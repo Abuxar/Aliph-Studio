@@ -31,22 +31,25 @@ function useMediaQuery(query: string) {
  * not restart playback — the backdrop stays continuous the way a native one
  * would.
  *
- * DESKTOP ONLY, deliberately. On phones this was costing a multi-megabyte
- * download over mobile data for a decorative layer, and mobile browsers —
- * Brave on Android among them — block autoplay by default, so most visitors
- * paid for the download and then saw a flat background anyway. Below 768px
- * the video is never requested and the aurora field carries the backdrop on
- * its own; it is built to look finished without the film behind it.
+ * `preload="none"` is the key detail on mobile. Many mobile browsers — Brave
+ * on Android among them — block autoplay by default; with `none` those
+ * visitors never download the file at all, so a blocked autoplay costs
+ * nothing on mobile data instead of megabytes for a layer that then does not
+ * move. Where autoplay is permitted, the film loads and plays as normal.
  *
- * It also fades in only on `canplay`, so a slow or blocked fetch leaves the
- * aurora showing rather than a black rectangle.
+ * Either way the aurora field underneath is doing the real work: it animates
+ * on its own, in CSS, on every device. The video is an enhancement on top of
+ * a backdrop that already moves — never the thing that makes it move.
+ *
+ * Fades in only on `canplay`, so a slow or blocked fetch leaves the aurora
+ * showing rather than a black rectangle.
  */
 export function BackgroundVideo() {
   const [ready, setReady] = useState(false);
-  const wide = useMediaQuery("(min-width: 768px)");
   const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
 
-  if (!wide || reduced) return null;
+  // A looping background film is exactly what this setting exists to suppress.
+  if (reduced) return null;
 
   return (
     <div
@@ -61,7 +64,7 @@ export function BackgroundVideo() {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         onCanPlay={() => setReady(true)}
       >
         <source src={BACKGROUND_VIDEO} type="video/mp4" />

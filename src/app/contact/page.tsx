@@ -98,6 +98,23 @@ export default function ContactPage() {
                   <br />
                   <span className="text-faint">{site.contact.timezone}</span>
                 </address>
+
+                {/* Social row, driven by site.social so it stays in step with
+                    the footer and the sameAs schema. */}
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {Object.entries(site.social).map(([name, href]) => (
+                    <li key={name}>
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="glass glass-edge relative inline-flex rounded-full px-4 py-2 font-label text-[0.7rem] uppercase tracking-[0.14em] text-muted transition-colors hover:text-bright"
+                      >
+                        {name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
