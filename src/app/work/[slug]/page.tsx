@@ -110,7 +110,7 @@ export default async function CaseStudyPage({ params }: Params) {
                 {study.services.map((s) => (
                   <li
                     key={s}
-                    className="rounded-full glass glass-edge px-4 py-2 font-display text-[0.88rem] text-body"
+                    className="rounded-full glass glass-edge relative px-4 py-2 font-display text-[0.88rem] text-body"
                   >
                     {s}
                   </li>

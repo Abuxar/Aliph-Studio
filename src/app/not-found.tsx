@@ -28,7 +28,7 @@ export default function NotFound() {
             <li key={service.slug}>
               <Link
                 href={`/services/${service.slug}`}
-                className="inline-block rounded-full glass glass-edge px-4 py-2 font-display text-[0.9rem] tracking-tight text-body transition-colors hover:border-cobalt-lift hover:text-cobalt-lift"
+                className="inline-block rounded-full glass glass-edge relative px-4 py-2 font-display text-[0.9rem] tracking-tight text-body transition-colors hover:border-cobalt-lift hover:text-cobalt-lift"
               >
                 {service.short}
               </Link>

@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { site, whatsappHref } from "@/lib/site";
 
 /**
@@ -50,44 +47,41 @@ export function WhatsAppLink({
 }
 
 /**
- * Floating enquiry button — fixed bottom-right, present on every route.
+ * Floating "chat with us" pill, fixed bottom-right on every page.
  *
- * Mounted once in the root layout, so it survives navigation rather than
- * remounting per page. It is visible from first paint rather than gated on
- * scroll: a launcher that only appears part-way down a page reads as missing
- * on short pages and on anything the reader has not scrolled yet.
+ * `inline-flex` and `w-fit` here are load-bearing, not tidiness. The previous
+ * version used plain `flex`, which makes the anchor a BLOCK-level flex
+ * container — so `width: auto` filled the containing block instead of hugging
+ * its content, and the button rendered as a bar stretched across the full
+ * width of every page. It was worst on mobile, where it covered the footer.
  *
- * Collapsed it is a plain circle; the label expands on hover with the icon
- * held on the right. It sits below the select popup's stacking layer so it can
- * never cover an open dropdown, and it is nudged up on small screens to clear
- * mobile browser chrome.
+ * The label is always visible rather than expanding on hover: touch devices
+ * have no hover state, so a hover-to-reveal label is invisible to exactly the
+ * audience most likely to reach for WhatsApp.
+ *
+ * Sits at z-40, below the select popup's layer, so it can never cover an open
+ * dropdown on the contact form.
  */
 export function WhatsAppFloat() {
-  const [ready, setReady] = useState(false);
-
-  // One frame before fading in, so the entrance plays instead of the button
-  // being painted in place on load.
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setReady(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
-
   return (
     <a
       href={whatsappHref}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`Message us on WhatsApp at ${site.whatsapp.display}`}
-      className={`glass glass-edge group fixed bottom-6 right-5 z-40 flex items-center gap-0 overflow-hidden rounded-full p-3.5 transition-[opacity,transform,gap] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:gap-2.5 sm:bottom-7 sm:right-7 ${
-        ready ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-      }`}
+      aria-label={`Chat with us on WhatsApp at ${site.whatsapp.display}`}
+      className="glass glass-edge group fixed right-4 z-40 inline-flex w-fit items-center gap-2.5 rounded-full py-2 pl-2 pr-4 transition-[transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:border-[var(--line-strong)] sm:right-6 sm:gap-3 sm:pr-5"
+      style={{
+        // Clears the iOS home-indicator bar rather than sitting under it.
+        bottom: "max(1rem, env(safe-area-inset-bottom))",
+      }}
     >
-      {/* Label first, icon on the right. */}
-      <span className="max-w-0 whitespace-nowrap font-display text-[0.88rem] font-medium tracking-tight text-bright opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:max-w-[10rem] group-hover:opacity-100">
-        Chat on WhatsApp
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-[var(--glass-bg-strong)] text-body transition-colors duration-300 group-hover:text-bright">
+        <WhatsAppIcon className="h-[17px] w-[17px]" />
       </span>
 
-      <WhatsAppIcon className="h-6 w-6 shrink-0 text-body transition-colors duration-300 group-hover:text-bright" />
+      <span className="whitespace-nowrap font-display text-[0.72rem] font-semibold uppercase leading-none tracking-[0.13em] text-body transition-colors duration-300 group-hover:text-bright sm:text-[0.75rem]">
+        Chat with us
+      </span>
     </a>
   );
 }

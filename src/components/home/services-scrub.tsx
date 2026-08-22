@@ -134,7 +134,7 @@ export function ServicesScrub({ index }: { index?: string }) {
                 <article
                   key={service.slug}
                   data-service-panel
-                  className="glass glass-edge flex flex-col gap-5 rounded-2xl p-7 scrub:[grid-area:1/1] scrub:p-9"
+                  className="glass glass-edge relative flex flex-col gap-5 rounded-2xl p-7 scrub:[grid-area:1/1] scrub:p-9"
                 >
                   <p className="eyebrow scrub:hidden">
                     {String(i + 1).padStart(2, "0")}

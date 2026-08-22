@@ -83,7 +83,7 @@ export default function ReviewsPage() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="glass glass-edge inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-display text-[0.9rem] font-medium tracking-tight text-bright transition-colors hover:text-cobalt-lift"
+                  className="glass glass-edge relative inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-display text-[0.9rem] font-medium tracking-tight text-bright transition-colors hover:text-cobalt-lift"
                 >
                   {item.label}
                   <svg

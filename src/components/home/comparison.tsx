@@ -59,7 +59,7 @@ export function Comparison({ index }: { index?: string }) {
         lede="Most agency pages compare on adjectives. Here is the comparison as things you can hold us to in week one."
       />
 
-      <div className="mt-14 glass glass-edge overflow-hidden rounded-2xl">
+      <div className="mt-14 glass glass-edge relative overflow-hidden rounded-2xl">
         <table className="cmp w-full border-collapse text-left">
           <caption className="sr-only">
             Aliph Studio compared with a typical agency, across eight criteria

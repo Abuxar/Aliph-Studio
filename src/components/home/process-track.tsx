@@ -114,7 +114,7 @@ export function ProcessTrack({ index }: { index?: string }) {
             {processSteps.map((step, i) => (
               <li
                 key={step.title}
-                className="flex w-[78vw] shrink-0 snap-start flex-col gap-3.5 glass glass-edge rounded-2xl p-6 sm:w-[62vw] md:w-[44vw] scrub:w-[26rem] scrub:p-8"
+                className="flex w-[78vw] shrink-0 snap-start flex-col gap-3.5 glass glass-edge relative rounded-2xl p-6 sm:w-[62vw] md:w-[44vw] scrub:w-[26rem] scrub:p-8"
               >
                 <div className="flex items-baseline justify-between gap-4">
                   <span className="font-label text-[0.72rem] tabular-nums text-gold">

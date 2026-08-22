@@ -102,7 +102,7 @@ export default function ContactPage() {
             </div>
 
             {/* Form */}
-            <div className="glass glass-edge rounded-2xl p-6 sm:p-9">
+            <div className="glass glass-edge relative rounded-2xl p-6 sm:p-9">
               <ContactForm />
             </div>
           </div>

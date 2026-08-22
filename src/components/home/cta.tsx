@@ -41,7 +41,7 @@ export function Cta() {
             {site.contact.email}
           </ButtonLink>
           <WhatsAppLink
-            className="glass glass-edge rounded-full px-6 py-3 font-display text-[0.9rem] font-medium tracking-tight text-bright"
+            className="glass glass-edge relative rounded-full px-6 py-3 font-display text-[0.9rem] font-medium tracking-tight text-bright"
             label="WhatsApp"
           />
         </div>

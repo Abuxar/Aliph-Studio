@@ -144,7 +144,7 @@ export default async function ServicePage({ params }: Params) {
               {service.stack.map((tech) => (
                 <li
                   key={tech}
-                  className="rounded-full glass glass-edge px-4 py-2 font-display text-[0.9rem] tracking-tight text-body"
+                  className="rounded-full glass glass-edge relative px-4 py-2 font-display text-[0.9rem] tracking-tight text-body"
                 >
                   {tech}
                 </li>
@@ -152,7 +152,7 @@ export default async function ServicePage({ params }: Params) {
             </ul>
 
             <div
-              className="mt-2 glass glass-edge rounded-2xl p-7"
+              className="mt-2 glass glass-edge relative rounded-2xl p-7"
               data-reveal
             >
               <p className="text-[0.97rem] leading-relaxed text-body">
@@ -191,7 +191,7 @@ export default async function ServicePage({ params }: Params) {
             <li key={other.slug} data-reveal>
               <Link
                 href={`/services/${other.slug}`}
-                className="group flex h-full flex-col gap-3 glass glass-edge rounded-2xl p-6 transition-colors duration-500 hover:border-[var(--line-strong)]"
+                className="group flex h-full flex-col gap-3 glass glass-edge relative rounded-2xl p-6 transition-colors duration-500 hover:border-[var(--line-strong)]"
               >
                 <span className="font-display text-[1.15rem] font-medium tracking-tight text-bright transition-colors group-hover:text-cobalt-lift">
                   {other.title}

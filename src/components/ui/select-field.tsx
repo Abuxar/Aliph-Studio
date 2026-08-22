@@ -206,7 +206,7 @@ export function SelectField({
           // Anchor the bottom edge to the trigger when flipped upward.
           transform: pos.dropUp ? "translateY(-100%)" : undefined,
         }}
-        className="popover glass-edge scroll-slim z-[70] max-h-64 overflow-y-auto overscroll-contain rounded-xl p-1.5"
+        className="popover glass-edge relative scroll-slim z-[70] max-h-64 overflow-y-auto overscroll-contain rounded-xl p-1.5"
       >
         {options.map((option, i) => {
           const selected = option === value;

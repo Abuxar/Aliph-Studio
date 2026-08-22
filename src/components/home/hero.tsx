@@ -68,7 +68,7 @@ export function Hero() {
         <div data-hero-parallax className="flex flex-col items-start gap-7">
           {/* Badge */}
           <span
-            className="appear appear--pop glass glass-edge inline-flex items-center gap-2.5 rounded-full py-2 pl-3 pr-4"
+            className="appear appear--pop glass glass-edge relative inline-flex items-center gap-2.5 rounded-full py-2 pl-3 pr-4"
             style={{ animationDelay: "0.22s" }}
           >
             <svg
@@ -143,7 +143,7 @@ export function Hero() {
             {heroStats.map((stat, i) => (
               <div
                 key={stat.label}
-                className="appear appear--stat glass glass-edge flex items-center gap-4 rounded-2xl p-5"
+                className="appear appear--stat glass glass-edge relative flex items-center gap-4 rounded-2xl p-5"
                 style={{ animationDelay: `${1.12 + i * 0.16}s` }}
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line text-cobalt-lift">

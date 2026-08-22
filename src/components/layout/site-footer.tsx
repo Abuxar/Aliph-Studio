@@ -22,7 +22,7 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-line glass">
-      <div className="container-page py-16 lg:py-20">
+      <div className="container-page pt-16 pb-28 lg:py-20 lg:pb-24">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           {/* Identity + NAP. This address block is the canonical NAP —
               it must match the Google Business Profile character for character. */}

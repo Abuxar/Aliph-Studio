@@ -70,7 +70,7 @@ export function GlassCard({
       }}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className={`glass glass-edge spotlight rounded-2xl transition-[transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${className}`}
+      className={`glass glass-edge relative spotlight rounded-2xl transition-[transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${className}`}
     >
       {/* Content sits above the ::after spotlight layer. */}
       <div className={`relative z-[1] flex h-full flex-col ${contentClassName}`}>

@@ -14,7 +14,7 @@ const variants: Record<Variant, string> = {
   primary:
     "text-white shadow-[0_6px_24px_-8px_var(--cobalt)] hover:shadow-[0_10px_32px_-8px_var(--cobalt)]",
   glass:
-    "glass glass-edge text-bright hover:border-[var(--line-strong)]",
+    "glass glass-edge relative text-bright hover:border-[var(--line-strong)]",
   ghost:
     "border border-line text-bright hover:border-cobalt-lift hover:text-cobalt-lift",
 };

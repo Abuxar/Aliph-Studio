@@ -344,9 +344,15 @@ p { text-wrap: pretty; }
 }
 
 /* A 1px specular edge along the top — the detail that sells glass
-   as a physical surface rather than a translucent rectangle. */
+   as a physical surface rather than a translucent rectangle.
+
+   NOTE: this utility deliberately does NOT set `position`. It used to set
+   `position: relative`, which silently beat `fixed` / `absolute` on any
+   element that also carried one — the floating WhatsApp pill ended up static
+   and stretched across the page because of it. Consumers must supply their
+   own positioning; the ::before below needs a positioned ancestor. */
 @utility glass-edge {
-  position: relative;
+  isolation: isolate;
 }
 .glass-edge::before {
   content: "";
