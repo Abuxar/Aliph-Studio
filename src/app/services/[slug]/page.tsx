@@ -51,15 +51,6 @@ export default async function ServicePage({ params }: Params) {
 
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-line pt-36 pb-16 lg:pt-44 lg:pb-24">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-0 h-[46vh] w-[100vw] -translate-x-1/2 -translate-y-1/3 rounded-[50%] opacity-45 blur-[110px]"
-          style={{
-            background:
-              "radial-gradient(closest-side, rgba(47,111,240,0.28), transparent)",
-          }}
-        />
-
         <div className="container-page relative z-10">
           <nav aria-label="Breadcrumb" className="mb-8">
             <ol className="flex flex-wrap items-center gap-2 font-label text-[0.7rem] uppercase tracking-[0.14em] text-muted">

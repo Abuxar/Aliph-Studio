@@ -13,9 +13,19 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 /**
  * Set piece 2 — the pinned services scrub.
  *
- * The section pins and the five services advance as one gesture. On narrow
- * screens pinning fights the mobile URL bar and costs more than it gives, so
- * below the `lg` breakpoint this degrades to a plain stacked list.
+ * The section pins and the five services advance as one gesture. Below the
+ * breakpoint, pinning fights the mobile URL bar and costs more than it gives,
+ * so it degrades to a plain stacked list.
+ *
+ * Panel visibility is owned entirely by GSAP, never by Tailwind classes.
+ * These panels must NOT carry `data-reveal`: the reveal engine writes an
+ * inline `opacity: 1`, inline styles beat classes, and every panel would be
+ * forced visible at once — stacking all five on top of each other and making
+ * the scrub look broken.
+ *
+ * `gsap.matchMedia` scopes the desktop behaviour to the breakpoint and
+ * reverts every tween it created when the query stops matching, so resizing
+ * across the boundary cannot leave a panel stuck hidden.
  */
 export function ServicesScrub() {
   const root = useRef<HTMLDivElement>(null);
@@ -23,27 +33,52 @@ export function ServicesScrub() {
 
   useGSAP(
     () => {
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const wide = window.matchMedia("(min-width: 1024px)");
-      if (reduced.matches || !wide.matches) return;
+      const mm = gsap.matchMedia();
 
-      const panels = gsap.utils.toArray<HTMLElement>("[data-service-panel]");
+      mm.add(
+        "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const panels = gsap.utils.toArray<HTMLElement>("[data-service-panel]");
+          if (panels.length === 0) return;
 
-      ScrollTrigger.create({
-        trigger: root.current,
-        start: "top top",
-        // One viewport of scroll per service after the first.
-        end: () => `+=${(panels.length - 1) * window.innerHeight * 0.85}`,
-        pin: "[data-service-pin]",
-        scrub: 0.5,
-        onUpdate: (self) => {
-          const next = Math.min(
-            panels.length - 1,
-            Math.round(self.progress * (panels.length - 1)),
-          );
-          setActive(next);
+          // Only the first panel starts visible; the rest are hidden and
+          // taken out of the accessibility tree via autoAlpha.
+          gsap.set(panels, { autoAlpha: 0 });
+          gsap.set(panels[0], { autoAlpha: 1 });
+
+          let current = 0;
+
+          ScrollTrigger.create({
+            trigger: root.current,
+            start: "top top",
+            // Roughly one viewport of scroll per service after the first.
+            end: () =>
+              `+=${(panels.length - 1) * window.innerHeight * 0.85}`,
+            pin: "[data-service-pin]",
+            scrub: 0.5,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              const next = Math.min(
+                panels.length - 1,
+                Math.max(0, Math.round(self.progress * (panels.length - 1))),
+              );
+              if (next === current) return;
+
+              gsap.to(panels[current], { autoAlpha: 0, duration: 0.3 });
+              gsap.to(panels[next], { autoAlpha: 1, duration: 0.45 });
+
+              current = next;
+              setActive(next);
+            },
+          });
+
+          // matchMedia reverts the gsap.set calls above on cleanup, restoring
+          // the stacked-list layout when the query stops matching.
+          return () => setActive(0);
         },
-      });
+      );
+
+      return () => mm.revert();
     },
     { scope: root },
   );
@@ -82,19 +117,16 @@ export function ServicesScrub() {
               ))}
             </ol>
 
-            {/* Panels. All five are in the DOM and readable without JS —
-                the scrub only changes which one is visually forward. */}
-            <div className="flex flex-col gap-5 lg:relative lg:h-[26rem] lg:gap-0">
+            {/* Panels. All five are in the DOM and readable without JS — the
+                scrub only changes which one is forward. On desktop they share
+                one grid cell, so the container tracks the tallest panel and no
+                copy can overflow a hard-coded height. */}
+            <div className="flex flex-col gap-5 lg:grid lg:gap-0">
               {services.map((service, i) => (
                 <article
                   key={service.slug}
                   data-service-panel
-                  data-reveal
-                  className={`flex flex-col gap-5 glass glass-edge rounded-2xl p-7 transition-opacity duration-500 lg:absolute lg:inset-0 lg:border-0 lg:bg-transparent lg:p-0 ${
-                    i === active
-                      ? "lg:opacity-100"
-                      : "lg:pointer-events-none lg:opacity-0"
-                  }`}
+                  className="glass glass-edge flex flex-col gap-5 rounded-2xl p-7 lg:[grid-area:1/1] lg:p-9"
                 >
                   <p className="eyebrow lg:hidden">
                     {String(i + 1).padStart(2, "0")}

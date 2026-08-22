@@ -4,15 +4,6 @@ import { ButtonLink } from "@/components/ui/button";
 export function Cta() {
   return (
     <section className="relative overflow-hidden border-t border-line glass py-[clamp(5rem,11vw,9rem)]">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 h-[40vh] w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-[50%] opacity-50 blur-[110px]"
-        style={{
-          background:
-            "radial-gradient(closest-side, rgba(47,111,240,0.3), transparent)",
-        }}
-      />
-
       <div className="container-page relative z-10 flex flex-col items-center gap-8 text-center">
         <p className="eyebrow" data-reveal>
           Next step

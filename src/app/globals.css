@@ -68,13 +68,15 @@
   --glass-shadow: 0 8px 32px -8px rgba(10, 16, 32, 0.14),
     0 2px 8px -2px rgba(10, 16, 32, 0.06);
   --glass-highlight: rgba(255, 255, 255, 0.9);
-  --spotlight: rgba(36, 86, 216, 0.14);
+  --spotlight: rgba(10, 16, 32, 0.07);
 
-  /* aurora blobs */
-  --aurora-1: rgba(36, 86, 216, 0.5);
-  --aurora-2: rgba(109, 63, 240, 0.4);
-  --aurora-3: rgba(14, 157, 146, 0.34);
-  --aurora-opacity: 0.55;
+  /* Ambient depth field — neutral, not coloured. The background film
+     supplies the colour; this only adds soft luminance variation and acts
+     as the fallback backdrop if the video never loads. */
+  --aurora-1: rgba(10, 16, 32, 0.07);
+  --aurora-2: rgba(10, 16, 32, 0.05);
+  --aurora-3: rgba(10, 16, 32, 0.04);
+  --aurora-opacity: 0.9;
 
   /* Light needs a heavier scrim: the footage is dark, and dark video
      under near-black body copy fails contrast outright. */
@@ -109,12 +111,12 @@
   --glass-border: rgba(255, 255, 255, 0.11);
   --glass-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6);
   --glass-highlight: rgba(255, 255, 255, 0.16);
-  --spotlight: rgba(122, 167, 255, 0.16);
+  --spotlight: rgba(255, 255, 255, 0.07);
 
-  --aurora-1: rgba(61, 123, 255, 0.42);
-  --aurora-2: rgba(167, 123, 255, 0.34);
-  --aurora-3: rgba(47, 212, 196, 0.24);
-  --aurora-opacity: 0.6;
+  --aurora-1: rgba(255, 255, 255, 0.07);
+  --aurora-2: rgba(255, 255, 255, 0.05);
+  --aurora-3: rgba(255, 255, 255, 0.035);
+  --aurora-opacity: 0.9;
 
   --video-scrim: rgba(6, 8, 15, 0.6);
 
