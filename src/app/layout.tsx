@@ -12,6 +12,7 @@ import { AppearEngine } from "@/components/providers/appear-engine";
 import { Aurora } from "@/components/ui/aurora";
 import { BackgroundVideo } from "@/components/ui/background-video";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { WhatsAppFloat } from "@/components/ui/whatsapp";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 
@@ -101,6 +102,7 @@ export default function RootLayout({
             <SiteHeader />
             <main id="main">{children}</main>
             <SiteFooter />
+            <WhatsAppFloat />
           </SmoothScroll>
         </ThemeProvider>
       </body>

@@ -1,5 +1,6 @@
 import { site } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/button";
+import { WhatsAppLink } from "@/components/ui/whatsapp";
 
 export function Cta() {
   return (
@@ -39,6 +40,10 @@ export function Cta() {
           <ButtonLink href={`mailto:${site.contact.email}`} variant="ghost">
             {site.contact.email}
           </ButtonLink>
+          <WhatsAppLink
+            className="glass glass-edge rounded-full px-6 py-3 font-display text-[0.9rem] font-medium tracking-tight text-bright"
+            label="WhatsApp"
+          />
         </div>
       </div>
     </section>

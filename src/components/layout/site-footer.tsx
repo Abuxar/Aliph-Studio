@@ -2,6 +2,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { services } from "@/lib/content";
 import { AlifMark } from "@/components/ui/logo";
+import { WhatsAppLink } from "@/components/ui/whatsapp";
 
 const company = [
   { label: "Work", href: "/work" },
@@ -88,6 +89,7 @@ export function SiteFooter() {
             >
               {site.contact.phone}
             </a>
+            <WhatsAppLink className="text-[0.9rem] text-body" />
             <p className="text-[0.85rem] text-muted">
               {site.contact.hours}
               <br />

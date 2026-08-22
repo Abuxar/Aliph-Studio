@@ -34,6 +34,21 @@ export const site = {
     timezone: "Asia/Karachi (UTC+5)",
   },
 
+  /**
+   * WhatsApp is the primary enquiry channel for local clients, so it is
+   * surfaced alongside email rather than buried.
+   *
+   * `intl` is the only form wa.me accepts: country code, no leading zero, no
+   * plus, no spaces. The local 0323... form silently fails to resolve, so the
+   * two are stored separately rather than derived at each call site.
+   */
+  whatsapp: {
+    local: "0323 0708000",
+    display: "+92 323 0708000",
+    intl: "923230708000",
+    prefill: "Hi Aliph Studio - I would like to discuss a project.",
+  },
+
   social: {
     linkedin: "https://www.linkedin.com/company/aliph-studio",
     github: "https://github.com/Abuxar",
@@ -49,6 +64,11 @@ export const site = {
     { region: "United States", city: "New York", offset: "−9h" },
   ],
 } as const;
+
+/** wa.me deep link, with the enquiry message pre-filled. */
+export const whatsappHref = `https://wa.me/${site.whatsapp.intl}?text=${encodeURIComponent(
+  site.whatsapp.prefill,
+)}`;
 
 /**
  * Header navigation. /work is deliberately absent — the page stays live, is

@@ -3,6 +3,7 @@ import { buildMetadata } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/ui/json-ld";
 import { ContactForm } from "@/components/contact/contact-form";
+import { WhatsAppLink } from "@/components/ui/whatsapp";
 
 export const metadata = buildMetadata({
   title: "Contact",
@@ -89,6 +90,10 @@ export default function ContactPage() {
                 >
                   {site.contact.phone}
                 </a>
+                <WhatsAppLink
+                  className="text-[0.95rem] text-body"
+                  label={`WhatsApp ${site.whatsapp.display}`}
+                />
 
                 <address className="mt-1 border-t border-line pt-4 not-italic text-[0.9rem] leading-relaxed text-muted">
                   {site.contact.street}
