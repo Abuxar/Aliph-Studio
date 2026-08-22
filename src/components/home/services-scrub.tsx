@@ -32,7 +32,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  * that satisfies one but not the other stacks the panels without running the
  * script that hides them — and all five render on top of each other.
  */
-export function ServicesScrub() {
+export function ServicesScrub({ index }: { index?: string }) {
   const root = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
@@ -96,7 +96,7 @@ export function ServicesScrub() {
       <div data-service-pin className="scrub:min-h-[100svh] scrub:py-20">
         <div className="container-page py-[clamp(4.5rem,10vw,7rem)] scrub:py-0">
           <SectionHeading
-            index="01"
+            index={index}
             eyebrow="What we do"
             title="Five services, one"
             accent="team"

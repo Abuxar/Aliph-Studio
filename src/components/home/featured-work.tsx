@@ -3,11 +3,11 @@ import { caseStudies } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { ButtonLink } from "@/components/ui/button";
 
-export function FeaturedWork() {
+export function FeaturedWork({ index }: { index?: string }) {
   return (
     <Section id="work">
       <SectionHeading
-        index="02"
+        index={index}
         eyebrow="Selected work"
         title="Results we can put a number"
         accent="on"

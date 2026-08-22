@@ -16,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  * the motion agree, which is the only reason to use horizontal scroll at all.
  * Below `lg` it becomes a native swipe carousel — no pinning, no hijack.
  */
-export function ProcessTrack() {
+export function ProcessTrack({ index }: { index?: string }) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -86,7 +86,7 @@ export function ProcessTrack() {
       <div className="flex flex-col justify-center scrub:min-h-[100svh] scrub:py-16">
         <div className="container-page">
           <SectionHeading
-            index="03"
+            index={index}
             eyebrow="How we work"
             title="Five stages, and you see the work at"
             accent="every one"

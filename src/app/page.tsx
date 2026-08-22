@@ -5,7 +5,6 @@ import { JsonLd } from "@/components/ui/json-ld";
 
 import { Hero } from "@/components/home/hero";
 import { ServicesScrub } from "@/components/home/services-scrub";
-import { FeaturedWork } from "@/components/home/featured-work";
 import { ProcessTrack } from "@/components/home/process-track";
 import { TechMarquee } from "@/components/home/tech-marquee";
 import { Engagement } from "@/components/home/engagement";
@@ -26,13 +25,12 @@ export default function HomePage() {
       <JsonLd data={faqSchema(faqs)} />
 
       <Hero />
-      <ServicesScrub />
-      <FeaturedWork />
-      <ProcessTrack />
+      <ServicesScrub index="01" />
+      <ProcessTrack index="02" />
       <TechMarquee />
-      <Engagement />
-      <Faq items={faqs} index="05" />
-      <Location index="06" />
+      <Engagement index="03" />
+      <Faq items={faqs} index="04" />
+      <Location index="05" />
       <Cta />
     </>
   );

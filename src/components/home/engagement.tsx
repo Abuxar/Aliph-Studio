@@ -6,11 +6,11 @@ import { GlassCard } from "@/components/ui/glass-card";
  * International buyers filter on engagement model before they enquire.
  * Stating it plainly on the homepage removes a round trip.
  */
-export function Engagement() {
+export function Engagement({ index }: { index?: string }) {
   return (
     <Section id="engagement">
       <SectionHeading
-        index="04"
+        index={index}
         eyebrow="How to hire us"
         title="Three ways to work together, priced"
         accent="openly"
