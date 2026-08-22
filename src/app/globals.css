@@ -68,6 +68,9 @@
   --glass-shadow: 0 8px 32px -8px rgba(10, 16, 32, 0.14),
     0 2px 8px -2px rgba(10, 16, 32, 0.06);
   --glass-highlight: rgba(255, 255, 255, 0.9);
+  /* Popovers overlay content rather than the background, so they need to be
+     near-opaque — a 55% panel over body copy is unreadable both ways. */
+  --popover-bg: rgba(247, 249, 252, 0.97);
   --spotlight: rgba(10, 16, 32, 0.07);
 
   /* Ambient depth field — neutral, not coloured. The background film
@@ -111,6 +114,7 @@
   --glass-border: rgba(255, 255, 255, 0.11);
   --glass-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6);
   --glass-highlight: rgba(255, 255, 255, 0.16);
+  --popover-bg: rgba(19, 25, 35, 0.97);
   --spotlight: rgba(255, 255, 255, 0.07);
 
   --aurora-1: rgba(255, 255, 255, 0.07);
@@ -239,6 +243,15 @@ p { text-wrap: pretty; }
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   box-shadow: var(--glass-shadow);
   isolation: isolate;
+}
+
+/* Overlay surface: same frosted treatment, but opaque enough to read over. */
+@utility popover {
+  background: var(--popover-bg);
+  border: 1px solid var(--line-strong);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.45);
 }
 
 @utility glass-strong {

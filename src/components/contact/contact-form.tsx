@@ -198,9 +198,7 @@ export function ContactForm() {
         </p>
       ) : null}
 
-      <div className="mt-2">
-        <SubmitButton />
-      </div>
+      <SubmitButton />
 
       <p className="text-[0.82rem] leading-relaxed text-muted">
         We reply within one working day. Your details stay with us — we do not

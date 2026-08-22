@@ -39,6 +39,7 @@ export function SelectField({
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);
+  const [dropUp, setDropUp] = useState(false);
 
   const rootRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
@@ -77,6 +78,15 @@ export function SelectField({
   const openAt = () => {
     const i = value ? options.indexOf(value) : 0;
     setHighlight(i < 0 ? 0 : i);
+
+    // Flip above the trigger when there is not enough room below, so the
+    // list never runs off the bottom of the viewport.
+    const rect = rootRef.current?.getBoundingClientRect();
+    if (rect) {
+      const below = window.innerHeight - rect.bottom;
+      setDropUp(below < 280 && rect.top > below);
+    }
+
     setOpen(true);
   };
 
@@ -135,7 +145,13 @@ export function SelectField({
   };
 
   return (
-    <div ref={rootRef} className="relative flex flex-col gap-2">
+    <div
+      ref={rootRef}
+      /* z-40 while open lifts the entire control above form controls that
+         come later in the DOM — without it the submit button, which is
+         positioned and later, paints over the open list. */
+      className={`relative flex flex-col gap-2 ${open ? "z-40" : ""}`}
+    >
       {/* The real form value. A Server Action reads this from FormData. */}
       <input type="hidden" name={name} value={value} />
 
@@ -191,7 +207,9 @@ export function SelectField({
           id={listId}
           role="listbox"
           aria-labelledby={`${id}-label`}
-          className="glass-strong glass-edge absolute top-full z-30 mt-2 max-h-64 w-full overflow-y-auto rounded-xl p-1.5"
+          className={`popover absolute z-50 max-h-64 w-full overflow-y-auto overscroll-contain rounded-xl p-1.5 ${
+            dropUp ? "bottom-full mb-2" : "top-full mt-2"
+          }`}
         >
           {options.map((option, i) => {
             const selected = option === value;
@@ -212,7 +230,7 @@ export function SelectField({
                 }}
                 className={`flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-[0.92rem] transition-colors duration-150 ${
                   active
-                    ? "bg-[var(--glass-bg-strong)] text-bright"
+                    ? "bg-[var(--line)] text-bright"
                     : "text-body"
                 }`}
               >

@@ -38,7 +38,7 @@ export default function ContactPage() {
 
       <section className="pt-36 pb-24 lg:pt-44">
         <div className="container-page">
-          <div className="grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
+          <div className="grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:items-start lg:gap-20">
             {/* Left rail */}
             <div className="flex flex-col gap-10">
               <div className="flex flex-col gap-6">
@@ -90,7 +90,7 @@ export default function ContactPage() {
                   {site.contact.phone}
                 </a>
 
-                <address className="mt-3 not-italic text-[0.9rem] leading-relaxed text-muted">
+                <address className="mt-1 border-t border-line pt-4 not-italic text-[0.9rem] leading-relaxed text-muted">
                   {site.contact.street}
                   <br />
                   {site.contact.locality}, {site.contact.region}{" "}
