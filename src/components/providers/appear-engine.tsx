@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * Locks in the entrance choreography, and guarantees it can never strand
@@ -20,6 +21,8 @@ import { useEffect } from "react";
  *    content by failing.
  */
 export function AppearEngine() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const nodes = Array.from(
       document.querySelectorAll<HTMLElement>(".appear, .in-star, .in-em"),
@@ -47,7 +50,8 @@ export function AppearEngine() {
       cancelAnimationFrame(second);
       nodes.forEach((el) => el.removeEventListener("animationend", onEnd));
     };
-  }, []);
+    // Re-scan per route: the elements are different on every page.
+  }, [pathname]);
 
   return null;
 }

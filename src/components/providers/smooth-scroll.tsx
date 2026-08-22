@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,6 +17,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
  * Users who ask for reduced motion get native scrolling — Lenis never starts.
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (reduced.matches) return;
@@ -33,6 +37,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       touchMultiplier: 1.8,
     });
 
+    lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 
     const raf = (time: number) => lenis.raf(time * 1000);
@@ -62,8 +67,23 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       document.removeEventListener("click", onAnchorClick);
       gsap.ticker.remove(raf);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
+
+  /**
+   * Jump to the top on navigation.
+   *
+   * Lenis holds its own scroll position, so Next's default restoration does
+   * not reach it — without this you land at the previous page's offset,
+   * typically part-way down a page whose content has not revealed yet.
+   * Triggers are refreshed afterwards because the new page's height differs.
+   */
+  useEffect(() => {
+    lenisRef.current?.scrollTo(0, { immediate: true });
+    window.scrollTo(0, 0);
+    ScrollTrigger.refresh();
+  }, [pathname]);
 
   return <>{children}</>;
 }

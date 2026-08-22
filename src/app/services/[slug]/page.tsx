@@ -174,7 +174,6 @@ export default async function ServicePage({ params }: Params) {
         <div className="border-t border-line">
           <Faq
             items={service.faqs}
-            index="03"
             eyebrow={`${service.short} questions`}
             title="What clients ask about this"
             accent="service"

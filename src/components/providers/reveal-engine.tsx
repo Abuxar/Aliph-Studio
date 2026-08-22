@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -12,17 +13,22 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
  * enter together, which is what makes the reveal read as one movement rather
  * than as many unrelated fades.
  *
+ * Keyed on `pathname` — this is load-bearing, not an optimisation. This
+ * component is mounted once in the root layout, so with an empty dependency
+ * array the batch only ever covers the first page's elements. Every element
+ * on a client-side navigation would then stay stuck at `opacity: 0`, and the
+ * page would render blank below the fold.
+ *
  * Opt-in attributes on any element:
  *   data-reveal          — participate in the reveal
  *   data-reveal-delay    — extra delay in seconds
- *   data-reveal-x        — horizontal offset in px instead of vertical
  */
 export function RevealEngine() {
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const pathname = usePathname();
 
+  useEffect(() => {
     // CSS already reveals everything under reduced-motion; do not animate.
-    if (reduced.matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +40,6 @@ export function RevealEngine() {
           gsap.to(batch, {
             opacity: 1,
             y: 0,
-            x: 0,
             duration: 0.9,
             ease: "expo.out",
             stagger: 0.08,
@@ -48,24 +53,40 @@ export function RevealEngine() {
           });
         },
       });
-
-      // Elements that slide in horizontally start offset on the x axis.
-      gsap.set("[data-reveal][data-reveal-x]", {
-        x: (i, target: Element) =>
-          Number((target as HTMLElement).dataset.revealX ?? 0),
-        y: 0,
-      });
     });
 
-    // Late-loading fonts and images change layout; recalculate once settled.
-    const onLoad = () => ScrollTrigger.refresh();
+    /**
+     * Safety net. If an element is already past the trigger point when the
+     * batch is created — a deep link, a restored scroll position, a fast
+     * navigation — `onEnter` never fires for it and it would stay invisible.
+     * Reveal anything already in or above the viewport immediately.
+     */
+    const rescue = () => {
+      document
+        .querySelectorAll<HTMLElement>("[data-reveal]:not([data-reveal-done])")
+        .forEach((el) => {
+          if (el.getBoundingClientRect().top < window.innerHeight * 0.88) {
+            gsap.set(el, { opacity: 1, y: 0 });
+            el.setAttribute("data-reveal-done", "");
+          }
+        });
+    };
+
+    ScrollTrigger.refresh();
+    rescue();
+
+    // Late-loading fonts, images and the background video change layout.
+    const onLoad = () => {
+      ScrollTrigger.refresh();
+      rescue();
+    };
     window.addEventListener("load", onLoad);
 
     return () => {
       window.removeEventListener("load", onLoad);
       ctx.revert();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

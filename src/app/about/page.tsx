@@ -121,7 +121,7 @@ export default function AboutPage() {
       </Section>
 
       <div className="border-t border-line">
-        <Location />
+        <Location index="03" />
       </div>
 
       <Cta />

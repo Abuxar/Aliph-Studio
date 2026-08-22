@@ -6,7 +6,7 @@ export function Testimonials() {
   return (
     <Section>
       <SectionHeading
-        index="05"
+        index="04"
         eyebrow="What clients say"
         title="Named, attributed, and happy to take the"
         accent="call"

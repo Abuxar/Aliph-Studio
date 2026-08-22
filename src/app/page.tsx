@@ -33,7 +33,7 @@ export default function HomePage() {
       <TechMarquee />
       <Testimonials />
       <Engagement />
-      <Faq items={faqs} />
+      <Faq items={faqs} index="06" />
       <Location />
       <Cta />
     </>

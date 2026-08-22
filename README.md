@@ -62,6 +62,15 @@ Almost everything is data, not markup:
 - **Contact details / NAP** — `src/lib/site.ts`. This must match your Google
   Business Profile character for character.
 
+## Routes
+
+`/` · `/services` · `/services/[slug]` (5) · `/work` · `/work/[slug]` (3) ·
+`/process` · `/about` · `/contact` · `/privacy` · `/terms` · 404
+
+Not yet built, and deliberately absent from the sitemap so nothing 404s:
+**`/blog`** and **`/careers`**. The blog matters commercially — it is the
+proof that the SEO service works — so it is the first thing to add.
+
 ## Motion architecture
 
 Two libraries with a strict division of labour, and one scroll authority:

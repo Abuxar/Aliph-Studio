@@ -6,14 +6,17 @@ import { Section, SectionHeading } from "@/components/ui/section";
  *
  * The timezone overlap is the actual objection an overseas buyer has, so it
  * gets stated as a number rather than implied by a map pin.
+ *
+ * `index` is a prop because this section appears on both the homepage and
+ * /about, at a different position in each page's numbered sequence.
  */
-export function Location() {
+export function Location({ index = "07" }: { index?: string }) {
   return (
     <Section id="location">
       <div className="grid gap-14 lg:grid-cols-2 lg:items-start lg:gap-20">
         <div>
           <SectionHeading
-            index="08"
+            index={index}
             eyebrow="Where we work"
             title="Based in Lahore, working across four"
             accent="markets"

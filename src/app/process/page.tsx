@@ -69,7 +69,7 @@ export default function ProcessPage() {
       </Section>
 
       <div className="border-t border-line">
-        <Faq items={faqs} index="02" />
+        <Faq items={faqs} />
       </div>
 
       <Cta />

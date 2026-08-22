@@ -6,35 +6,32 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ButtonLink } from "@/components/ui/button";
 import { Counter } from "@/components/ui/counter";
+import { stats } from "@/lib/content";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-/* Hero stats carry their own icons, so they are declared here rather than
-   pulled from the shared `stats` list used elsewhere. */
-const heroStats = [
-  {
-    value: "60+",
-    label: "Projects delivered",
-    icon: (
-      <path d="M3 7.5 12 3l9 4.5-9 4.5-9-4.5ZM3 12l9 4.5 9-4.5M3 16.5 12 21l9-4.5" />
-    ),
-  },
-  {
-    value: "94%",
-    label: "Client retention",
-    icon: <path d="M3 17.5 9 11l4 4 8-8.5M21 6.5h-5m5 0v5" />,
-  },
-  {
-    value: "4",
-    label: "Markets served",
-    icon: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z" />
-      </>
-    ),
-  },
-];
+/**
+ * Icons for the three stats surfaced in the hero, keyed by the label in
+ * `content.ts`. The values themselves are never duplicated here — a second
+ * copy would drift out of step with the same figures shown on /about.
+ */
+const statIcons: Record<string, React.ReactNode> = {
+  "Projects delivered": (
+    <path d="M3 7.5 12 3l9 4.5-9 4.5-9-4.5ZM3 12l9 4.5 9-4.5M3 16.5 12 21l9-4.5" />
+  ),
+  "Client retention": <path d="M3 17.5 9 11l4 4 8-8.5M21 6.5h-5m5 0v5" />,
+  "Markets served": (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z" />
+    </>
+  ),
+};
+
+/** The three that earn hero space, in the order they read best. */
+const heroStats = ["Projects delivered", "Client retention", "Markets served"]
+  .map((label) => stats.find((s) => s.label === label))
+  .filter((s): s is (typeof stats)[number] => Boolean(s));
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -161,7 +158,7 @@ export function Hero() {
                     strokeLinejoin="round"
                     aria-hidden="true"
                   >
-                    {stat.icon}
+                    {statIcons[stat.label]}
                   </svg>
                 </span>
 

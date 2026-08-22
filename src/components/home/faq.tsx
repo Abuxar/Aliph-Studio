@@ -7,13 +7,14 @@ import { Section, SectionHeading } from "@/components/ui/section";
  */
 export function Faq({
   items,
-  index = "07",
+  index,
   eyebrow = "Questions",
   title = "The things clients ask before they",
   accent = "commit",
   lede,
 }: {
   items: { q: string; a: string }[];
+  /** Omit on pages whose sections are not numbered. */
   index?: string;
   eyebrow?: string;
   title?: string;
