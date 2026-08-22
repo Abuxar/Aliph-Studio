@@ -1,0 +1,13 @@
+# Normalise to LF in the repository.
+# The Dockerfile and deploy/nginx.conf are consumed on Linux — CRLF endings
+# break shell heredocs and nginx directives there, so this is correctness,
+# not preference. Working copies on Windows are unaffected.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.webp binary
+*.avif binary
+*.woff  binary
+*.woff2 binary

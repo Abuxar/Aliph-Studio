@@ -1,0 +1,31 @@
+# Hostinger VPS deployment.
+#
+#   docker compose up -d --build
+#
+# The app listens on 127.0.0.1:3000 only — nginx on the host terminates TLS
+# and proxies to it. Binding to the loopback interface means the Node server
+# is never reachable from the internet directly, even if the firewall lapses.
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        # Baked into the client bundle at build time. Must match your domain.
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://aliph.studio}
+    image: aliph-studio:latest
+    container_name: aliph-studio
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://aliph.studio}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      CONTACT_FROM_EMAIL: ${CONTACT_FROM_EMAIL}
+      CONTACT_TO_EMAIL: ${CONTACT_TO_EMAIL}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
