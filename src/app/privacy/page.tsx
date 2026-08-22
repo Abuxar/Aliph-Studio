@@ -83,7 +83,7 @@ export default function PrivacyPage() {
       <h2>Contact</h2>
       <p>
         {site.legalName}, {site.contact.street}, {site.contact.locality},{" "}
-        {site.contact.region} {site.contact.postalCode},{" "}
+        {site.contact.region},{" "}
         {site.contact.countryName}.
         <br />
         <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>

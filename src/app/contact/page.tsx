@@ -92,8 +92,7 @@ export default function ContactPage() {
                 <address className="mt-1 border-t border-line pt-4 not-italic text-[0.9rem] leading-relaxed text-muted">
                   {site.contact.street}
                   <br />
-                  {site.contact.locality}, {site.contact.region}{" "}
-                  {site.contact.postalCode}
+                  {site.contact.locality}, {site.contact.region}
                   <br />
                   {site.contact.countryName}
                   <br />

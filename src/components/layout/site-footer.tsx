@@ -36,8 +36,7 @@ export function SiteFooter() {
               <span className="block font-display text-bright">{site.name}</span>
               {site.contact.street}
               <br />
-              {site.contact.locality}, {site.contact.region}{" "}
-              {site.contact.postalCode}
+              {site.contact.locality}, {site.contact.region}
               <br />
               {site.contact.countryName}
             </address>

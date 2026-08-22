@@ -33,8 +33,7 @@ export function Location({ index = "07" }: { index?: string }) {
             </span>
             {site.contact.street}
             <br />
-            {site.contact.locality}, {site.contact.region}{" "}
-            {site.contact.postalCode}
+            {site.contact.locality}, {site.contact.region}
             <br />
             {site.contact.countryName}
             <br />

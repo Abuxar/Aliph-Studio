@@ -31,7 +31,6 @@ export function organizationSchema() {
       streetAddress: site.contact.street,
       addressLocality: site.contact.locality,
       addressRegion: site.contact.region,
-      postalCode: site.contact.postalCode,
       addressCountry: site.contact.country,
     },
     geo: {

@@ -8,6 +8,11 @@
  * There is no separate landline: WhatsApp is the phone channel, so
  * `whatsapp.display` is the number shown and the one used in schema.
  *
+ * No postal code is carried. An invented one is worse than none: NAP matching
+ * compares this against the Google Business Profile character for character,
+ * and a wrong code actively breaks the match. Add it here only once the
+ * profile is created, and copy it from there verbatim.
+ *
  * TODO(aliph): replace the PLACEHOLDER values before launch.
  */
 export const site = {
@@ -22,11 +27,9 @@ export const site = {
 
   contact: {
     email: "thealiphstudio@gmail.com",
-    // PLACEHOLDER — the exact street address registered on your Google Business Profile
     street: "DHA Phase 3",
     locality: "Lahore",
     region: "Punjab",
-    postalCode: "54792",
     country: "PK",
     countryName: "Pakistan",
     // DHA Phase 3, Lahore — refine to your exact pin
