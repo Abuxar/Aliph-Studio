@@ -5,11 +5,20 @@ import { useFormStatus } from "react-dom";
 import { submitContact, type ContactState } from "@/app/actions/contact";
 import { budgets, serviceOptions } from "@/lib/contact-schema";
 import { Button } from "@/components/ui/button";
+import { SelectField } from "@/components/ui/select-field";
 
 const initial: ContactState = { status: "idle" };
 
+/**
+ * `glass-edge` is deliberately absent: inputs cannot render pseudo-elements,
+ * so the specular top edge would be dead weight on them.
+ *
+ * No `focus:outline-none` either — it matches on pointer focus AND keyboard
+ * focus, and at higher specificity than the global :focus-visible rule, so it
+ * would strip the keyboard focus ring from every field on the form.
+ */
 const field =
-  "w-full rounded-xl glass glass-edge px-4 py-3 font-body text-[0.95rem] text-bright placeholder:text-faint transition-colors duration-300 focus:border-cobalt-lift focus:outline-none";
+  "w-full rounded-xl glass px-4 py-3 font-body text-[0.95rem] text-bright placeholder:text-faint transition-colors duration-300 focus:border-[var(--line-strong)]";
 
 function Label({
   htmlFor,
@@ -141,46 +150,26 @@ export function ContactForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="flex flex-col gap-2">
-          <Label htmlFor="service">What do you need?</Label>
-          <select
-            id="service"
+          <SelectField
             name="service"
-            required
-            defaultValue=""
-            className={field}
-            aria-invalid={!!state.errors?.service}
-          >
-            <option value="" disabled>
-              Choose one
-            </option>
-            {serviceOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+            label="What do you need?"
+            options={serviceOptions}
+            placeholder="Choose one"
+            invalid={!!state.errors?.service}
+            describedBy={state.errors?.service ? "service-error" : undefined}
+          />
           <FieldError id="service" errors={state.errors?.service} />
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="budget">Approximate budget</Label>
-          <select
-            id="budget"
+          <SelectField
             name="budget"
-            required
-            defaultValue=""
-            className={field}
-            aria-invalid={!!state.errors?.budget}
-          >
-            <option value="" disabled>
-              Choose a range
-            </option>
-            {budgets.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+            label="Approximate budget"
+            options={budgets}
+            placeholder="Choose a range"
+            invalid={!!state.errors?.budget}
+            describedBy={state.errors?.budget ? "budget-error" : undefined}
+          />
           <FieldError id="budget" errors={state.errors?.budget} />
         </div>
       </div>

@@ -104,7 +104,7 @@ export default function ContactPage() {
             </div>
 
             {/* Form */}
-            <div className="rounded-2xl border border-line glass p-6 sm:p-9">
+            <div className="glass glass-edge rounded-2xl p-6 sm:p-9">
               <ContactForm />
             </div>
           </div>
