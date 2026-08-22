@@ -59,7 +59,7 @@ export function SiteHeader() {
       <header className="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
         <div className="container-page">
           <div
-            className={`flex h-[60px] items-center justify-between gap-4 rounded-full px-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:px-4 ${
+            className={`flex h-[68px] items-center justify-between gap-4 rounded-full px-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:px-4 ${
               scrolled || open
                 ? "glass-nav glass-edge"
                 : "border border-transparent bg-transparent"

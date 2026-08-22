@@ -91,7 +91,7 @@
      Legibility here comes from blur radius, not opacity: at 30px the text
      behind dissolves into a wash, so the surface can stay translucent and
      still read. */
-  --popover-bg: rgba(250, 251, 253, 0.62);
+  --popover-bg: rgba(246, 247, 248, 0.62);
   /* Tinted with the ground, not white: a nav bar reads as a slice of the
      page surface rather than as a floating card. */
   --nav-bg: rgba(238, 241, 247, 0.72);
@@ -138,7 +138,7 @@
   --glass-border: rgba(255, 255, 255, 0.11);
   --glass-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6);
   --glass-highlight: rgba(255, 255, 255, 0.16);
-  --popover-bg: rgba(16, 22, 32, 0.58);
+  --popover-bg: rgba(18, 19, 22, 0.52);
   --nav-bg: rgba(6, 8, 15, 0.68);
   --spotlight: rgba(255, 255, 255, 0.07);
 
@@ -290,7 +290,7 @@ p { text-wrap: pretty; }
      that sits over live content rather than over the background. */
   backdrop-filter: blur(30px) saturate(190%);
   -webkit-backdrop-filter: blur(30px) saturate(190%);
-  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 18px 48px -14px rgba(0, 0, 0, 0.38);
   isolation: isolate;
 }
 

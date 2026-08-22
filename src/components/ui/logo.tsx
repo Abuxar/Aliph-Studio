@@ -64,7 +64,7 @@ export function AlifMark({ className = "" }: { className?: string }) {
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`inline-flex items-baseline text-[1.5rem] leading-none tracking-tight ${className}`}
+      className={`inline-flex items-baseline text-[1.8rem] leading-none tracking-tight ${className}`}
       aria-label="Aliph Studio"
       role="img"
     >
