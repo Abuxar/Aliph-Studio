@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
-import { site } from "@/lib/site";
+import { site, allowIndexing } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/ui/json-ld";
 import { ThemeProvider } from "@/components/providers/theme-provider";
@@ -45,16 +45,18 @@ export const metadata: Metadata = {
   publisher: site.name,
   alternates: { canonical: "/" },
   formatDetection: { telephone: true, address: true, email: true },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+  robots: allowIndexing
+    ? {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+        },
+      }
+    : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {

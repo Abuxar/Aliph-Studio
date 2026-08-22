@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { site } from "./site";
+import { site, allowIndexing } from "./site";
 
 type MetaInput = {
   title: string;
@@ -32,19 +32,20 @@ export function buildMetadata({
     title: fullTitle,
     description,
     alternates: { canonical: url },
-    robots: noIndex
-      ? { index: false, follow: false }
-      : {
-          index: true,
-          follow: true,
-          googleBot: {
+    robots:
+      noIndex || !allowIndexing
+        ? { index: false, follow: false }
+        : {
             index: true,
             follow: true,
-            "max-image-preview": "large",
-            "max-snippet": -1,
-            "max-video-preview": -1,
+            googleBot: {
+              index: true,
+              follow: true,
+              "max-image-preview": "large",
+              "max-snippet": -1,
+              "max-video-preview": -1,
+            },
           },
-        },
     openGraph: {
       type,
       url,

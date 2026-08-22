@@ -79,6 +79,21 @@ export const whatsappHref = `https://wa.me/${site.whatsapp.intl}?text=${encodeUR
  * linked from the footer and the hero, and remains in the sitemap; it is just
  * not carried in the top bar.
  */
+/**
+ * Search indexing switch. OFF unless NEXT_PUBLIC_ALLOW_INDEXING is exactly
+ * "true".
+ *
+ * Defaults to off on purpose. The case studies and testimonials are still
+ * placeholders, and having invented client results indexed under this brand
+ * is worse than not being indexed at all — doubly so for a studio that sells
+ * SEO. It also stops a *.vercel.app deployment competing with the real domain
+ * once aliph.studio goes live.
+ *
+ * Flip it to "true" in the Vercel production environment when the content is
+ * real and the domain is attached.
+ */
+export const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
+
 export const nav = [
   { label: "Services", href: "/services" },
   { label: "Process", href: "/process" },
