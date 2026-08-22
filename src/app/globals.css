@@ -294,6 +294,19 @@ p { text-wrap: pretty; }
   isolation: isolate;
 }
 
+/* Hides the scrollbar without disabling the scroll. Used on the horizontal
+   card track, where the OS bar is a chunky grey slab across the design and
+   the affordance is already carried by the next card peeking in at the edge.
+   Never use this where the peek cue is absent — an invisible scrollbar on
+   content with no other cue is content nobody finds. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Thin scrollbar so a long list does not put a chunky OS-chrome bar
    through the middle of a glass panel. */
 @utility scroll-slim {

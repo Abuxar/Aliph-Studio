@@ -109,7 +109,7 @@ export function ProcessTrack() {
         <div className="mt-8 scrub:mt-10 scrub:overflow-hidden">
           <ol
             data-track
-            className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-[clamp(1.25rem,5vw,4rem)] pb-4 scrub:snap-none scrub:overflow-visible scrub:pb-0"
+            className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto px-[clamp(1.25rem,5vw,4rem)] pb-1 scrub:snap-none scrub:overflow-visible scrub:pb-0"
           >
             {processSteps.map((step, i) => (
               <li
