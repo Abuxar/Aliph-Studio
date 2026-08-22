@@ -8,7 +8,6 @@ import { ServicesScrub } from "@/components/home/services-scrub";
 import { FeaturedWork } from "@/components/home/featured-work";
 import { ProcessTrack } from "@/components/home/process-track";
 import { TechMarquee } from "@/components/home/tech-marquee";
-import { Testimonials } from "@/components/home/testimonials";
 import { Engagement } from "@/components/home/engagement";
 import { Faq } from "@/components/home/faq";
 import { Location } from "@/components/home/location";
@@ -31,10 +30,9 @@ export default function HomePage() {
       <FeaturedWork />
       <ProcessTrack />
       <TechMarquee />
-      <Testimonials />
       <Engagement />
-      <Faq items={faqs} index="06" />
-      <Location />
+      <Faq items={faqs} index="05" />
+      <Location index="06" />
       <Cta />
     </>
   );

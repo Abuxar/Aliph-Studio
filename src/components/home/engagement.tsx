@@ -10,7 +10,7 @@ export function Engagement() {
   return (
     <Section id="engagement">
       <SectionHeading
-        index="05"
+        index="04"
         eyebrow="How to hire us"
         title="Three ways to work together, priced"
         accent="openly"

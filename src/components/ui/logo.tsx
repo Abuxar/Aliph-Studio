@@ -64,7 +64,7 @@ export function AlifMark({ className = "" }: { className?: string }) {
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`inline-flex items-baseline text-[1.8rem] leading-none tracking-tight ${className}`}
+      className={`inline-flex items-baseline text-[1.8rem] leading-none tracking-[0.015em] ${className}`}
       aria-label="Aliph Studio"
       role="img"
     >
@@ -72,13 +72,13 @@ export function Wordmark({ className = "" }: { className?: string }) {
         Al
       </span>
 
-      <AlifGlyph className="mx-[0.05em] h-[1.12em] w-auto text-cobalt-lift" />
+      <AlifGlyph className="mx-[0.1em] h-[1.12em] w-auto text-cobalt-lift" />
 
       <span className="accent text-bright" aria-hidden="true">
         ph
       </span>
 
-      <span className="accent ml-[0.26em] text-muted" aria-hidden="true">
+      <span className="accent ml-[0.42em] text-muted" aria-hidden="true">
         Studio
       </span>
     </span>

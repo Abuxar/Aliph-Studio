@@ -2,11 +2,16 @@ import { testimonials } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { GlassCard } from "@/components/ui/glass-card";
 
-export function Testimonials() {
+/**
+ * Currently not mounted on any page — removed from the homepage, kept for
+ * reuse. `index` is a prop rather than a constant so it cannot carry a stale
+ * section number onto whatever page it lands on next.
+ */
+export function Testimonials({ index }: { index?: string }) {
   return (
     <Section>
       <SectionHeading
-        index="04"
+        index={index}
         eyebrow="What clients say"
         title="Named, attributed, and happy to take the"
         accent="call"
