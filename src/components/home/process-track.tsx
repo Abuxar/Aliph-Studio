@@ -98,13 +98,13 @@ export function ProcessTrack() {
             {processSteps.map((step, i) => (
               <li
                 key={step.title}
-                className="flex w-[78vw] shrink-0 snap-start flex-col gap-4 rounded-2xl border border-line bg-surface p-7 sm:w-[62vw] md:w-[44vw] lg:w-[28rem] lg:p-9"
+                className="flex w-[78vw] shrink-0 snap-start flex-col gap-4 glass glass-edge rounded-2xl p-7 sm:w-[62vw] md:w-[44vw] lg:w-[28rem] lg:p-9"
               >
                 <div className="flex items-baseline justify-between gap-4">
-                  <span className="font-mono text-[0.72rem] tabular-nums text-gold">
+                  <span className="font-label text-[0.72rem] tabular-nums text-gold">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-faint">
+                  <span className="font-label text-[0.7rem] uppercase tracking-[0.14em] text-faint">
                     {step.duration}
                   </span>
                 </div>

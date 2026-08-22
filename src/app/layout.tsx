@@ -1,23 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 import { site } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/ui/json-ld";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { RevealEngine } from "@/components/providers/reveal-engine";
+import { AppearEngine } from "@/components/providers/appear-engine";
+import { Aurora } from "@/components/ui/aurora";
+import { BackgroundVideo } from "@/components/ui/background-video";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 
-/**
- * Fonts are self-hosted by next/font at build time — no round trip to Google,
- * no layout shift, and it works identically on Vercel and on the VPS.
- */
-const instrumentSans = Instrument_Sans({
+// Variable Inter — one file covers every weight the design uses.
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-instrument-sans",
+  variable: "--font-inter",
 });
 
 const instrumentSerif = Instrument_Serif({
@@ -26,12 +28,6 @@ const instrumentSerif = Instrument_Serif({
   style: "italic",
   display: "swap",
   variable: "--font-instrument-serif",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
@@ -60,8 +56,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#06080b",
-  colorScheme: "dark",
+  // Matches --ground in each theme so the mobile browser chrome tracks it.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#eef1f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#06080f" },
+  ],
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -73,12 +72,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} no-js`}
+      className={`${inter.variable} ${instrumentSerif.variable} no-js`}
+      // next-themes writes the theme class here before paint.
       suppressHydrationWarning
     >
       <head>
-        {/* Drop the no-js class before paint so reveal elements can start
-            hidden. Without this, a JS-disabled visitor would see nothing. */}
+        {/* Drop `no-js` before first paint so reveal elements may start
+            hidden. Without it, a visitor with JS disabled sees nothing. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.classList.remove('no-js')`,
@@ -88,12 +88,21 @@ export default function RootLayout({
       <body className="grain antialiased">
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
 
-        <SmoothScroll>
-          <RevealEngine />
-          <SiteHeader />
-          <main id="main">{children}</main>
-          <SiteFooter />
-        </SmoothScroll>
+        <ThemeProvider>
+          {/* Ambient film, then the colour field over it. Both fixed and
+              behind every page, so the backdrop is continuous across routes. */}
+          <BackgroundVideo />
+          <Aurora />
+
+          <SmoothScroll>
+            <ScrollProgress />
+            <RevealEngine />
+            <AppearEngine />
+            <SiteHeader />
+            <main id="main">{children}</main>
+            <SiteFooter />
+          </SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );

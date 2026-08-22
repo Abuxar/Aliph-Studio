@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 const initial: ContactState = { status: "idle" };
 
 const field =
-  "w-full rounded-xl border border-line bg-surface px-4 py-3 font-body text-[0.95rem] text-bright placeholder:text-faint transition-colors duration-300 focus:border-cobalt-lift focus:outline-none";
+  "w-full rounded-xl glass glass-edge px-4 py-3 font-body text-[0.95rem] text-bright placeholder:text-faint transition-colors duration-300 focus:border-cobalt-lift focus:outline-none";
 
 function Label({
   htmlFor,
@@ -27,7 +27,7 @@ function Label({
     >
       {children}
       {optional ? (
-        <span className="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-faint">
+        <span className="font-label text-[0.65rem] uppercase tracking-[0.12em] text-faint">
           Optional
         </span>
       ) : null}
@@ -60,7 +60,7 @@ export function ContactForm() {
   if (state.status === "success") {
     return (
       <div
-        className="flex flex-col items-start gap-4 rounded-2xl border border-cobalt-dim bg-surface p-8"
+        className="flex flex-col items-start gap-4 rounded-2xl border border-[var(--line-strong)] glass p-8"
         role="status"
       >
         <span className="flex h-11 w-11 items-center justify-center rounded-full border border-cobalt-lift text-cobalt-lift">
@@ -202,7 +202,7 @@ export function ContactForm() {
 
       {state.status === "error" && state.message ? (
         <p
-          className="rounded-xl border border-gold/40 bg-elevated px-4 py-3 text-[0.9rem] text-gold"
+          className="rounded-xl border border-gold/40 glass px-4 py-3 text-[0.9rem] text-gold"
           role="alert"
         >
           {state.message}

@@ -72,7 +72,7 @@ export function ServicesScrub() {
                       : "border-line text-faint"
                   }`}
                 >
-                  <span className="font-mono text-[0.7rem] tabular-nums">
+                  <span className="font-label text-[0.7rem] tabular-nums">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="font-display text-[1.05rem] font-medium tracking-tight">
@@ -90,7 +90,7 @@ export function ServicesScrub() {
                   key={service.slug}
                   data-service-panel
                   data-reveal
-                  className={`flex flex-col gap-5 rounded-2xl border border-line bg-surface p-7 transition-opacity duration-500 lg:absolute lg:inset-0 lg:border-0 lg:bg-transparent lg:p-0 ${
+                  className={`flex flex-col gap-5 glass glass-edge rounded-2xl p-7 transition-opacity duration-500 lg:absolute lg:inset-0 lg:border-0 lg:bg-transparent lg:p-0 ${
                     i === active
                       ? "lg:opacity-100"
                       : "lg:pointer-events-none lg:opacity-0"
@@ -116,7 +116,7 @@ export function ServicesScrub() {
                     {service.stack.slice(0, 5).map((tech) => (
                       <li
                         key={tech}
-                        className="rounded-full border border-line px-3 py-1 font-mono text-[0.68rem] tracking-wide text-muted"
+                        className="rounded-full border border-line px-3 py-1 font-label text-[0.68rem] tracking-wide text-muted"
                       >
                         {tech}
                       </li>

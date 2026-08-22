@@ -62,7 +62,7 @@ export default async function ServicePage({ params }: Params) {
 
         <div className="container-page relative z-10">
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex flex-wrap items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted">
+            <ol className="flex flex-wrap items-center gap-2 font-label text-[0.7rem] uppercase tracking-[0.14em] text-muted">
               <li>
                 <Link href="/" className="transition-colors hover:text-bright">
                   Home
@@ -136,7 +136,7 @@ export default async function ServicePage({ params }: Params) {
                   data-reveal-delay={`${i * 0.04}`}
                   className="flex items-baseline gap-5 border-b border-line py-4 first:border-t"
                 >
-                  <span className="font-mono text-[0.7rem] tabular-nums text-gold">
+                  <span className="font-label text-[0.7rem] tabular-nums text-gold">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-[1rem] text-body">{item}</span>
@@ -153,7 +153,7 @@ export default async function ServicePage({ params }: Params) {
               {service.stack.map((tech) => (
                 <li
                   key={tech}
-                  className="rounded-full border border-line bg-surface px-4 py-2 font-display text-[0.9rem] tracking-tight text-body"
+                  className="rounded-full glass glass-edge px-4 py-2 font-display text-[0.9rem] tracking-tight text-body"
                 >
                   {tech}
                 </li>
@@ -161,7 +161,7 @@ export default async function ServicePage({ params }: Params) {
             </ul>
 
             <div
-              className="mt-2 rounded-2xl border border-line bg-surface p-7"
+              className="mt-2 glass glass-edge rounded-2xl p-7"
               data-reveal
             >
               <p className="text-[0.97rem] leading-relaxed text-body">
@@ -201,7 +201,7 @@ export default async function ServicePage({ params }: Params) {
             <li key={other.slug} data-reveal>
               <Link
                 href={`/services/${other.slug}`}
-                className="group flex h-full flex-col gap-3 rounded-2xl border border-line bg-surface p-6 transition-colors duration-500 hover:border-cobalt-dim"
+                className="group flex h-full flex-col gap-3 glass glass-edge rounded-2xl p-6 transition-colors duration-500 hover:border-[var(--line-strong)]"
               >
                 <span className="font-display text-[1.15rem] font-medium tracking-tight text-bright transition-colors group-hover:text-cobalt-lift">
                   {other.title}

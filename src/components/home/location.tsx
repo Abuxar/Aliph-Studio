@@ -58,7 +58,7 @@ export function Location() {
               className="flex items-baseline justify-between gap-6 border-b border-line py-6 first:border-t"
             >
               <div className="flex items-baseline gap-4">
-                <span className="font-mono text-[0.7rem] tabular-nums text-gold">
+                <span className="font-label text-[0.7rem] tabular-nums text-gold">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="flex flex-col gap-0.5">
@@ -71,7 +71,7 @@ export function Location() {
                 </div>
               </div>
 
-              <span className="font-mono text-[0.8rem] tabular-nums text-body">
+              <span className="font-label text-[0.8rem] tabular-nums text-body">
                 {market.offset}
               </span>
             </li>

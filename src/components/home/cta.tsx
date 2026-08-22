@@ -3,7 +3,7 @@ import { ButtonLink } from "@/components/ui/button";
 
 export function Cta() {
   return (
-    <section className="relative overflow-hidden border-t border-line bg-ink py-[clamp(5rem,11vw,9rem)]">
+    <section className="relative overflow-hidden border-t border-line glass py-[clamp(5rem,11vw,9rem)]">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-1/2 top-0 h-[40vh] w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-[50%] opacity-50 blur-[110px]"

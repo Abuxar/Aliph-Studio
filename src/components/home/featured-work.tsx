@@ -20,14 +20,14 @@ export function FeaturedWork() {
             key={study.slug}
             data-reveal
             data-reveal-delay={`${i * 0.05}`}
-            className="group relative overflow-hidden rounded-2xl border border-line bg-surface transition-colors duration-500 hover:border-cobalt-dim"
+            className="group relative overflow-hidden glass glass-edge rounded-2xl transition-colors duration-500 hover:border-[var(--line-strong)]"
           >
             <Link
               href={`/work/${study.slug}`}
               className="grid gap-8 p-7 lg:grid-cols-[1.6fr_1fr] lg:items-center lg:p-10"
             >
               <div className="flex flex-col gap-4">
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-label text-[0.7rem] uppercase tracking-[0.14em] text-muted">
                   <span className="text-gold">
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -50,7 +50,7 @@ export function FeaturedWork() {
                   {study.stack.map((tech) => (
                     <li
                       key={tech}
-                      className="rounded-full border border-line px-3 py-1 font-mono text-[0.68rem] text-muted"
+                      className="rounded-full border border-line px-3 py-1 font-label text-[0.68rem] text-muted"
                     >
                       {tech}
                     </li>

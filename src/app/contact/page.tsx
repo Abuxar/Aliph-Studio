@@ -60,7 +60,7 @@ export default function ContactPage() {
                     key={item.k}
                     className="flex gap-5 border-b border-line py-5 first:border-t"
                   >
-                    <span className="font-mono text-[0.7rem] tabular-nums text-gold">
+                    <span className="font-label text-[0.7rem] tabular-nums text-gold">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div className="flex flex-col gap-1">
@@ -104,7 +104,7 @@ export default function ContactPage() {
             </div>
 
             {/* Form */}
-            <div className="rounded-2xl border border-line bg-ink p-6 sm:p-9">
+            <div className="rounded-2xl border border-line glass p-6 sm:p-9">
               <ContactForm />
             </div>
           </div>

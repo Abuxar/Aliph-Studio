@@ -1,5 +1,6 @@
 import { engagementModels } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/ui/section";
+import { GlassCard } from "@/components/ui/glass-card";
 
 /**
  * International buyers filter on engagement model before they enquire.
@@ -18,14 +19,20 @@ export function Engagement() {
 
       <div className="mt-14 grid gap-4 lg:grid-cols-3">
         {engagementModels.map((model, i) => (
-          <article
+          <GlassCard
             key={model.name}
-            data-reveal
-            data-reveal-delay={`${i * 0.06}`}
-            className="flex flex-col gap-5 rounded-2xl border border-line bg-surface p-7 transition-colors duration-500 hover:border-cobalt-dim"
+            as="article"
+            tilt
+            className="p-7"
+            contentClassName="gap-5"
           >
+            <div
+              data-reveal
+              data-reveal-delay={`${i * 0.06}`}
+              className="flex h-full flex-col gap-5"
+            >
             <div className="flex flex-col gap-2">
-              <span className="font-mono text-[0.7rem] tabular-nums text-gold">
+              <span className="font-label text-[0.7rem] tabular-nums text-gold">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <h3 className="text-[1.35rem]">{model.name}</h3>
@@ -42,13 +49,14 @@ export function Engagement() {
               {model.terms.map((term) => (
                 <li
                   key={term}
-                  className="rounded-full border border-line px-3 py-1 font-mono text-[0.68rem] text-muted"
+                  className="rounded-full border border-line px-3 py-1 font-label text-[0.68rem] text-muted"
                 >
                   {term}
                 </li>
               ))}
             </ul>
-          </article>
+            </div>
+          </GlassCard>
         ))}
       </div>
     </Section>

@@ -1,42 +1,126 @@
 @import "tailwindcss";
 
+/* Tell Tailwind that `dark:` follows the class next-themes stamps on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ============================================================
    Aliph Studio — design tokens
-   Dark-first cinematic. The palette commits to one world:
-   deep ink ground, high-contrast type, cobalt as the single
-   accent, gold reserved exclusively for the alif mark.
+   ============================================================
+   Two complete themes. Glass surfaces are translucent, so every
+   token here is authored as a channel triplet or an rgba() —
+   a solid hex would defeat the effect.
+
+   Light is the default on :root; .dark overrides the same names.
+   Components only ever read the token, never a literal.
    ============================================================ */
 
 @theme {
-  /* ground */
-  --color-void: #06080b;
-  --color-ink: #0a0e14;
-  --color-surface: #10151d;
-  --color-elevated: #171e28;
-  --color-line: #1f2836;
-  --color-line-soft: #161d27;
-
-  /* type */
-  --color-bright: #f4f6f9;
-  --color-body: #aab5c4;
-  --color-muted: #6d7a8b;
-  --color-faint: #47525f;
-
-  /* accent — used sparingly */
-  --color-cobalt: #2f6ff0;
-  --color-cobalt-lift: #6a9bff;
-  --color-cobalt-dim: #16243f;
-  --color-gold: #c9973f;
-
-  /* type stacks */
-  --font-display: var(--font-instrument-sans), "Segoe UI", system-ui, sans-serif;
-  --font-body: var(--font-instrument-sans), "Segoe UI", system-ui, sans-serif;
+  --font-display: var(--font-inter), "Segoe UI", system-ui, sans-serif;
+  --font-body: var(--font-inter), "Segoe UI", system-ui, sans-serif;
   --font-accent: var(--font-instrument-serif), Georgia, serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, Consolas, monospace;
+  /* Two faces for the whole site. Labels and eyebrows are Inter carrying
+     uppercase + wide tracking rather than a third, monospaced family. */
+  --font-label: var(--font-inter), "Segoe UI", system-ui, sans-serif;
 
-  /* motion */
+  /* The nav collapses to a burger below this, per the reference spec. */
+  --breakpoint-nav: 901px;
+
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* Bridge the CSS variables below into Tailwind colour utilities. */
+  --color-ground: var(--ground);
+  --color-bright: var(--bright);
+  --color-body: var(--body-text);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-lift: var(--cobalt-lift);
+  --color-violet: var(--violet);
+  --color-teal: var(--teal);
+  --color-gold: var(--gold);
+}
+
+/* ---------- light (default) ---------- */
+:root {
+  --ground: #eef1f7;
+  --ground-deep: #e4e9f2;
+
+  --bright: #0a1020;
+  --body-text: #46536b;
+  --muted: #6b7890;
+  --faint: #98a3b6;
+
+  --line: rgba(10, 16, 32, 0.1);
+  --line-strong: rgba(10, 16, 32, 0.16);
+
+  --cobalt: #2456d8;
+  --cobalt-lift: #1d4ed8;
+  --violet: #6d3ff0;
+  --teal: #0e9d92;
+  --gold: #a8761f;
+
+  /* glass */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-shadow: 0 8px 32px -8px rgba(10, 16, 32, 0.14),
+    0 2px 8px -2px rgba(10, 16, 32, 0.06);
+  --glass-highlight: rgba(255, 255, 255, 0.9);
+  --spotlight: rgba(36, 86, 216, 0.14);
+
+  /* aurora blobs */
+  --aurora-1: rgba(36, 86, 216, 0.5);
+  --aurora-2: rgba(109, 63, 240, 0.4);
+  --aurora-3: rgba(14, 157, 146, 0.34);
+  --aurora-opacity: 0.55;
+
+  /* Light needs a heavier scrim: the footage is dark, and dark video
+     under near-black body copy fails contrast outright. */
+  --video-scrim: rgba(238, 241, 247, 0.82);
+
+  --grain-opacity: 0.03;
+
+  color-scheme: light;
+}
+
+/* ---------- dark ---------- */
+.dark {
+  --ground: #06080f;
+  --ground-deep: #03050a;
+
+  --bright: #f2f5fa;
+  --body-text: #a7b3c6;
+  --muted: #6f7d94;
+  --faint: #4b5668;
+
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
+
+  --cobalt: #3d7bff;
+  --cobalt-lift: #7aa7ff;
+  --violet: #a77bff;
+  --teal: #2fd4c4;
+  --gold: #d9a85f;
+
+  --glass-bg: rgba(255, 255, 255, 0.045);
+  --glass-bg-strong: rgba(255, 255, 255, 0.075);
+  --glass-border: rgba(255, 255, 255, 0.11);
+  --glass-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6);
+  --glass-highlight: rgba(255, 255, 255, 0.16);
+  --spotlight: rgba(122, 167, 255, 0.16);
+
+  --aurora-1: rgba(61, 123, 255, 0.42);
+  --aurora-2: rgba(167, 123, 255, 0.34);
+  --aurora-3: rgba(47, 212, 196, 0.24);
+  --aurora-opacity: 0.6;
+
+  --video-scrim: rgba(6, 8, 15, 0.6);
+
+  --grain-opacity: 0.045;
+
+  color-scheme: dark;
 }
 
 /* ============================================================
@@ -44,15 +128,14 @@
    ============================================================ */
 
 * {
-  border-color: var(--color-line);
+  border-color: var(--line);
 }
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
+  background: var(--ground);
 }
 
-/* Lenis takes over scrolling; native smooth would fight it. */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -65,41 +148,43 @@ html.lenis body {
 }
 
 body {
-  background: var(--color-void);
-  color: var(--color-body);
+  /* Transparent so the fixed video layer shows through; <html> paints
+     the ground colour underneath it. */
+  background: transparent;
+  color: var(--body-text);
   font-family: var(--font-body);
-  font-size: 1rem;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Theme changes are a deliberate user action — cross-fade rather than snap. */
+  transition: background-color 0.5s var(--ease-out-expo);
 }
 
 ::selection {
-  background: var(--color-cobalt);
+  background: var(--cobalt);
   color: #fff;
 }
 
-/* Visible focus for keyboard users only. */
 :focus-visible {
-  outline: 2px solid var(--color-cobalt-lift);
+  outline: 2px solid var(--cobalt-lift);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  color: var(--color-bright);
+  color: var(--bright);
   font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.06;
+  letter-spacing: -0.028em;
+  line-height: 1.05;
   text-wrap: balance;
 }
 
 p { text-wrap: pretty; }
 
 /* ============================================================
-   utilities
+   layout utilities
    ============================================================ */
 
 @utility container-page {
@@ -109,32 +194,116 @@ p { text-wrap: pretty; }
   padding-inline: clamp(1.25rem, 5vw, 4rem);
 }
 
-/* Serif italic accent inside display headings. */
 @utility accent {
   font-family: var(--font-accent);
   font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
 }
 
 @utility eyebrow {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
+  font-weight: 500;
   font-size: 0.6875rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--muted);
 }
 
-/* Hairline that fades at both ends — used between sections. */
 @utility hairline {
   height: 1px;
   background: linear-gradient(
     to right,
     transparent,
-    var(--color-line) 15%,
-    var(--color-line) 85%,
+    var(--line-strong) 15%,
+    var(--line-strong) 85%,
     transparent
   );
+}
+
+/* ============================================================
+   glass
+   ============================================================
+   The frosted panel only reads if there is something colourful
+   behind it — that is what the aurora layer is for. Blur is
+   capped at 20px because cost scales with radius, and every
+   panel sets `isolation` so stacked glass does not double-blur.
+   ============================================================ */
+
+@utility glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: var(--glass-shadow);
+  isolation: isolate;
+}
+
+@utility glass-strong {
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: var(--glass-shadow);
+  isolation: isolate;
+}
+
+/* A 1px specular edge along the top — the detail that sells glass
+   as a physical surface rather than a translucent rectangle. */
+@utility glass-edge {
+  position: relative;
+}
+.glass-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--glass-highlight) 25%,
+    var(--glass-highlight) 75%,
+    transparent
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Cursor-tracked spotlight. --mx/--my are written by GlassCard. */
+@utility spotlight {
+  position: relative;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out-expo);
+  background: radial-gradient(
+    22rem circle at var(--mx, 50%) var(--my, 50%),
+    var(--spotlight),
+    transparent 68%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.spotlight:hover::after,
+.spotlight:focus-within::after {
+  opacity: 1;
+}
+
+/* Gradient text — used once per page at most. */
+@utility text-gradient {
+  background: linear-gradient(
+    115deg,
+    var(--cobalt-lift),
+    var(--violet) 55%,
+    var(--teal)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @utility grain {
@@ -142,24 +311,21 @@ p { text-wrap: pretty; }
 }
 .grain::after {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: var(--grain-opacity);
   z-index: 1;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ============================================================
-   scroll-reveal primitive
-   Elements start hidden and are released by GSAP. If JS never
-   runs, the fallback below reveals everything so content is
-   never trapped invisible — this also keeps it crawlable.
+   motion primitives
    ============================================================ */
 
 [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 24px, 0);
+  transform: translate3d(0, 26px, 0);
   will-change: transform, opacity;
 }
 
@@ -172,12 +338,77 @@ p { text-wrap: pretty; }
   transform: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+/* Character-level heading reveal. */
+[data-split] > span > span {
+  display: inline-block;
+  will-change: transform;
+}
 
+@keyframes aurora-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(6vw, -4vh, 0) scale(1.12); }
+  66%      { transform: translate3d(-4vw, 5vh, 0) scale(0.94); }
+}
+
+@keyframes aurora-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
+  40%      { transform: translate3d(-7vw, 4vh, 0) scale(0.92); }
+  75%      { transform: translate3d(5vw, -5vh, 0) scale(1.15); }
+}
+
+@keyframes aurora-drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.96); }
+  50%      { transform: translate3d(4vw, 6vh, 0) scale(1.18); }
+}
+
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-track {
+  animation: marquee-x var(--marquee-duration, 44s) linear infinite;
+}
+
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+@keyframes scroll-cue {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  45%  { transform: scaleY(1); transform-origin: top; }
+  55%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Slow conic sweep on the hero's featured panel. */
+@keyframes border-sweep {
+  to { transform: rotate(1turn); }
+}
+
+/* ============================================================
+   reduced motion
+   ============================================================
+   Kills ambient drift, scrubs and reveals. Keeps colour and
+   opacity transitions so the interface still responds.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  [data-split] > span > span {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .marquee-track,
+  [data-aurora],
+  [class*="animate-"] {
+    animation: none !important;
   }
 
   *,
@@ -190,28 +421,131 @@ p { text-wrap: pretty; }
   }
 }
 
+/* Older Firefox and anything without backdrop-filter gets an opaque
+   panel instead of an unreadable transparent one. */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass,
+  .glass-strong {
+    background: var(--ground-deep);
+  }
+}
+
 /* ============================================================
-   marquee
+   appear — the entrance choreography
+   ============================================================
+   Named variants with explicit per-element delays, so the hero
+   assembles in a scripted order rather than all at once.
+
+   The failsafe matters more than the animation: every .appear
+   element RESTS at opacity 1. The keyframes animate *from* a
+   hidden state, so if CSS animation never runs — old browser,
+   reduced motion, a failed stylesheet — the content is simply
+   visible. Nothing can get stranded invisible.
    ============================================================ */
 
-@keyframes marquee-x {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
+.appear {
+  opacity: 1;
+  animation-duration: 0.85s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
 }
 
-.marquee-track {
-  animation: marquee-x var(--marquee-duration, 40s) linear infinite;
+/* Locked in by JS on animationend so later repaints keep the rest state. */
+.appear.is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  clip-path: none;
 }
 
-.marquee-mask {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+.appear--scale { animation-name: in-scale; }
+.appear--soft  { animation-name: in-soft; }
+.appear--pop   { animation-name: in-pop; }
+.appear--btn   { animation-name: in-btn; }
+.appear--side  { animation-name: in-side; }
+.appear--stat  { animation-name: in-stat; }
+
+/* Line mask — the wrapper clips, the inner span rises. */
+.appear--mask {
+  display: block;
+  overflow: hidden;
+  animation-name: in-mask-clip;
+}
+.appear--mask > * {
+  display: block;
+  animation: in-mask-rise 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: inherit;
 }
 
-/* Hero scroll cue — a line that fills, holds, and drains. */
-@keyframes scroll-cue {
-  0%   { transform: scaleY(0); transform-origin: top; }
-  45%  { transform: scaleY(1); transform-origin: top; }
-  55%  { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
+@keyframes in-scale {
+  from { opacity: 0; transform: translate3d(0, 8px, 0) scale(0.94); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes in-soft {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); filter: blur(6px); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+
+@keyframes in-pop {
+  0%   { opacity: 0; transform: scale(0.82); }
+  62%  { opacity: 1; transform: scale(1.045); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes in-btn {
+  from { opacity: 0; transform: translate3d(0, 12px, 0) scale(0.96); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes in-side {
+  from { opacity: 0; transform: translate3d(-16px, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes in-stat {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes in-mask-clip {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 -12% 0); }
+}
+
+@keyframes in-mask-rise {
+  from { transform: translate3d(0, 108%, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+/* The badge sparkle snaps in with a slight overshoot rotation. */
+.in-star {
+  animation: in-star 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes in-star {
+  0%   { opacity: 0; transform: rotate(-110deg) scale(0); }
+  70%  { opacity: 1; transform: rotate(12deg) scale(1.18); }
+  100% { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+
+/* The italic emphasis word sharpens out of a blurred, dim state. */
+.in-em {
+  animation: in-em 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes in-em {
+  from { opacity: 0.28; filter: blur(11px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appear,
+  .appear--mask > *,
+  .in-star,
+  .in-em {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
 }

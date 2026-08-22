@@ -49,7 +49,7 @@ export default function ProcessPage() {
               data-reveal
               className="grid gap-5 border-b border-line py-10 lg:grid-cols-[auto_1fr_auto] lg:gap-12 first:border-t"
             >
-              <span className="font-mono text-[0.72rem] tabular-nums text-gold lg:pt-3">
+              <span className="font-label text-[0.72rem] tabular-nums text-gold lg:pt-3">
                 {String(i + 1).padStart(2, "0")}
               </span>
 
@@ -60,7 +60,7 @@ export default function ProcessPage() {
                 </p>
               </div>
 
-              <span className="font-mono text-[0.72rem] uppercase tracking-[0.14em] text-muted lg:pt-4">
+              <span className="font-label text-[0.72rem] uppercase tracking-[0.14em] text-muted lg:pt-4">
                 {step.duration}
               </span>
             </li>

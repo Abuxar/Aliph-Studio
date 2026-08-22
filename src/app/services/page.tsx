@@ -46,7 +46,7 @@ export default function ServicesPage() {
                 href={`/services/${service.slug}`}
                 className="group grid gap-6 border-b border-line py-10 transition-colors lg:grid-cols-[auto_1fr_auto] lg:items-baseline lg:gap-12 first:border-t"
               >
-                <span className="font-mono text-[0.72rem] tabular-nums text-gold">
+                <span className="font-label text-[0.72rem] tabular-nums text-gold">
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
@@ -61,7 +61,7 @@ export default function ServicesPage() {
                     {service.stack.slice(0, 4).map((tech) => (
                       <li
                         key={tech}
-                        className="rounded-full border border-line px-3 py-1 font-mono text-[0.68rem] text-muted"
+                        className="rounded-full border border-line px-3 py-1 font-label text-[0.68rem] text-muted"
                       >
                         {tech}
                       </li>

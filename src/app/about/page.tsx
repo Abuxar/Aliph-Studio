@@ -85,9 +85,9 @@ export default function AboutPage() {
               key={principle.title}
               data-reveal
               data-reveal-delay={`${i * 0.05}`}
-              className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-7"
+              className="flex flex-col gap-4 glass glass-edge rounded-2xl p-7"
             >
-              <span className="font-mono text-[0.7rem] tabular-nums text-gold">
+              <span className="font-label text-[0.7rem] tabular-nums text-gold">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <h3 className="text-[1.3rem]">{principle.title}</h3>
@@ -112,7 +112,7 @@ export default function AboutPage() {
           {techStack.map((tech) => (
             <li
               key={tech}
-              className="rounded-full border border-line bg-surface px-4 py-2 font-display text-[0.9rem] tracking-tight text-body"
+              className="rounded-full glass glass-edge px-4 py-2 font-display text-[0.9rem] tracking-tight text-body"
             >
               {tech}
             </li>

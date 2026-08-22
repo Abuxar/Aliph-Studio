@@ -6,13 +6,14 @@ import { useEffect, useState } from "react";
 import { nav } from "@/lib/site";
 import { Wordmark } from "@/components/ui/logo";
 import { ButtonLink } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
-  // Condense the bar once the hero is behind us.
+  // Once past the hero the bar condenses into a floating glass pill.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -20,7 +21,6 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock the page behind the open sheet, and restore on close.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -28,92 +28,126 @@ export function SiteHeader() {
     };
   }, [open]);
 
-  // Escape closes the sheet.
   useEffect(() => {
     if (!open) return;
+
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+
+    // Resizing past the breakpoint restores the desktop nav; leaving the
+    // sheet mounted would trap scroll behind an invisible overlay.
+    const wide = window.matchMedia("(min-width: 901px)");
+    const onWide = (e: MediaQueryListEvent) => e.matches && setOpen(false);
+
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    wide.addEventListener("change", onWide);
+
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      wide.removeEventListener("change", onWide);
+    };
   }, [open]);
 
   return (
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-bright focus:px-5 focus:py-2.5 focus:font-display focus:text-sm focus:text-void"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-cobalt focus:px-5 focus:py-2.5 focus:font-display focus:text-sm focus:text-white"
       >
         Skip to content
       </a>
 
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          scrolled || open
-            ? "border-b border-line bg-void/85 backdrop-blur-xl"
-            : "border-b border-transparent bg-transparent"
-        }`}
-      >
-        <div className="container-page flex h-[72px] items-center justify-between gap-6">
-          <Link href="/" aria-label={`Aliph Studio — home`}>
-            <Wordmark />
-          </Link>
-
-          <nav
-            className="hidden items-center gap-1 lg:flex"
-            aria-label="Primary"
+      <header className="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
+        <div className="container-page">
+          <div
+            className={`flex h-[60px] items-center justify-between gap-4 rounded-full px-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:px-4 ${
+              scrolled || open
+                ? "glass glass-edge"
+                : "border border-transparent bg-transparent"
+            }`}
           >
-            {nav.map((item) => {
-              const active = pathname.startsWith(item.href);
+            <Link
+              href="/"
+              aria-label="Aliph Studio — home"
+              className="appear appear--scale shrink-0 pl-1"
+              style={{ animationDelay: "0.08s" }}
+            >
+              <Wordmark />
+            </Link>
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  className={`relative rounded-full px-4 py-2 font-display text-[0.875rem] tracking-tight transition-colors duration-300 ${
-                    active
-                      ? "text-bright"
-                      : "text-muted hover:text-bright"
-                  }`}
-                >
-                  {item.label}
-                  {active ? (
+            <nav
+              className="hidden items-center gap-0.5 nav:flex"
+              aria-label="Primary"
+            >
+              {nav.map((item, i) => {
+                const active = pathname.startsWith(item.href);
+                // Alternating variants, 0.16s + 0.12s per item.
+                const variant = i % 2 === 0 ? "appear--scale" : "appear--soft";
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    style={{ animationDelay: `${0.16 + i * 0.12}s` }}
+                    className={`appear ${variant} group relative rounded-full px-4 py-2 font-display text-[0.875rem] tracking-tight transition-colors duration-300 ${
+                      active ? "text-bright" : "text-muted hover:text-bright"
+                    }`}
+                  >
+                    {/* Pill that fades in behind the active or hovered item. */}
                     <span
-                      className="absolute inset-x-4 -bottom-px h-px bg-cobalt-lift"
                       aria-hidden="true"
+                      className={`absolute inset-0 rounded-full border transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                        active
+                          ? "border-[var(--glass-border)] bg-[var(--glass-bg)] opacity-100"
+                          : "border-transparent bg-[var(--glass-bg)] opacity-0 group-hover:opacity-100"
+                      }`}
                     />
-                  ) : null}
-                </Link>
-              );
-            })}
-          </nav>
+                    <span className="relative">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </nav>
 
-          <div className="hidden lg:block">
-            <ButtonLink href="/contact" arrow className="px-5 py-2.5">
-              Start a project
-            </ButtonLink>
+            <div className="flex shrink-0 items-center gap-2">
+              <ThemeToggle />
+
+              <div
+                className="appear appear--scale hidden nav:block"
+                style={{ animationDelay: "0.34s" }}
+              >
+                <ButtonLink
+                  href="/contact"
+                  arrow
+                  magnetic
+                  className="px-5 py-2.5"
+                >
+                  Start a project
+                </ButtonLink>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setOpen((v) => !v)}
+                aria-expanded={open}
+                aria-controls="mobile-nav"
+                aria-label={open ? "Close menu" : "Open menu"}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-bright transition-colors hover:border-cobalt-lift nav:hidden"
+              >
+                <span className="relative block h-3 w-4">
+                  <span
+                    className={`absolute left-0 block h-px w-4 bg-current transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+                      open ? "top-1.5 rotate-45" : "top-0"
+                    }`}
+                  />
+                  <span
+                    className={`absolute left-0 block h-px w-4 bg-current transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+                      open ? "top-1.5 -rotate-45" : "top-3"
+                    }`}
+                  />
+                </span>
+              </button>
+            </div>
           </div>
-
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            aria-label={open ? "Close menu" : "Open menu"}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-bright lg:hidden"
-          >
-            <span className="relative block h-3 w-4">
-              <span
-                className={`absolute left-0 block h-px w-4 bg-current transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${
-                  open ? "top-1.5 rotate-45" : "top-0"
-                }`}
-              />
-              <span
-                className={`absolute left-0 block h-px w-4 bg-current transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${
-                  open ? "top-1.5 -rotate-45" : "top-3"
-                }`}
-              />
-            </span>
-          </button>
         </div>
       </header>
 
@@ -121,10 +155,10 @@ export function SiteHeader() {
       <div
         id="mobile-nav"
         hidden={!open}
-        className="fixed inset-0 z-40 bg-void/95 backdrop-blur-xl lg:hidden"
+        className="fixed inset-0 z-40 bg-[var(--ground)]/80 backdrop-blur-2xl nav:hidden"
       >
         <nav
-          className="container-page flex h-full flex-col justify-center gap-1 pb-24"
+          className="container-page flex h-full flex-col justify-center gap-2 pb-24"
           aria-label="Mobile"
         >
           {nav.map((item, i) => (
@@ -132,10 +166,14 @@ export function SiteHeader() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="border-b border-line-soft py-5 font-display text-[1.75rem] font-semibold tracking-tight text-bright"
-              style={{ transitionDelay: `${i * 40}ms` }}
+              className="group flex items-baseline gap-4 border-b border-line py-5 font-display text-[1.75rem] font-semibold tracking-tight text-bright"
             >
-              {item.label}
+              <span className="font-label text-[0.72rem] tabular-nums text-gold">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1">
+                {item.label}
+              </span>
             </Link>
           ))}
 

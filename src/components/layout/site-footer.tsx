@@ -19,7 +19,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-line bg-ink">
+    <footer className="border-t border-line glass">
       <div className="container-page py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           {/* Identity + NAP. This address block is the canonical NAP —
@@ -101,7 +101,7 @@ export function SiteFooter() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted transition-colors hover:text-cobalt-lift"
+                    className="font-label text-[0.7rem] uppercase tracking-[0.14em] text-muted transition-colors hover:text-cobalt-lift"
                   >
                     {key}
                   </a>
@@ -114,7 +114,7 @@ export function SiteFooter() {
         <div className="mt-14 hairline" />
 
         <div className="mt-6 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[0.72rem] tracking-[0.08em] text-faint">
+          <p className="font-label text-[0.72rem] tracking-[0.08em] text-faint">
             © {year} {site.legalName}. All rights reserved.
           </p>
 
@@ -123,7 +123,7 @@ export function SiteFooter() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="font-mono text-[0.72rem] tracking-[0.08em] text-faint transition-colors hover:text-body"
+                  className="font-label text-[0.72rem] tracking-[0.08em] text-faint transition-colors hover:text-body"
                 >
                   {item.label}
                 </Link>

@@ -10,7 +10,7 @@ import { techStack } from "@/lib/content";
 export function TechMarquee() {
   return (
     <section
-      className="border-y border-line bg-ink py-10"
+      className="border-y border-line glass py-10"
       aria-label="Technologies we work with"
     >
       <div className="marquee-mask overflow-hidden">

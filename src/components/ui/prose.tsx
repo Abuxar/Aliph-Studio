@@ -39,7 +39,7 @@ export function LegalPage({
       <div className="container-page">
         <p className="eyebrow">Legal</p>
         <h1 className="mt-6 text-[clamp(2rem,5vw,3.5rem)]">{title}</h1>
-        <p className="mt-4 font-mono text-[0.75rem] uppercase tracking-[0.14em] text-faint">
+        <p className="mt-4 font-label text-[0.75rem] uppercase tracking-[0.14em] text-faint">
           Last updated {updated}
         </p>
 

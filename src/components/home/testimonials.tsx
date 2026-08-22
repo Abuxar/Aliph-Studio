@@ -1,5 +1,6 @@
 import { testimonials } from "@/lib/content";
 import { Section, SectionHeading } from "@/components/ui/section";
+import { GlassCard } from "@/components/ui/glass-card";
 
 export function Testimonials() {
   return (
@@ -14,12 +15,12 @@ export function Testimonials() {
 
       <div className="mt-14 grid gap-4 lg:grid-cols-3">
         {testimonials.map((item, i) => (
-          <figure
-            key={item.name}
-            data-reveal
-            data-reveal-delay={`${i * 0.06}`}
-            className="flex flex-col justify-between gap-7 rounded-2xl border border-line bg-surface p-7"
-          >
+          <GlassCard key={item.name} className="p-7">
+            <figure
+              data-reveal
+              data-reveal-delay={`${i * 0.06}`}
+              className="flex h-full flex-col justify-between gap-7"
+            >
             <blockquote className="text-[1rem] leading-relaxed text-body">
               <span
                 aria-hidden="true"
@@ -38,7 +39,8 @@ export function Testimonials() {
                 {item.role}, {item.company}
               </span>
             </figcaption>
-          </figure>
+            </figure>
+          </GlassCard>
         ))}
       </div>
     </Section>

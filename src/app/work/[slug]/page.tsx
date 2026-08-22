@@ -50,7 +50,7 @@ export default async function CaseStudyPage({ params }: Params) {
       <section className="border-b border-line pt-36 pb-16 lg:pt-44 lg:pb-24">
         <div className="container-page">
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex flex-wrap items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted">
+            <ol className="flex flex-wrap items-center gap-2 font-label text-[0.7rem] uppercase tracking-[0.14em] text-muted">
               <li>
                 <Link href="/" className="transition-colors hover:text-bright">
                   Home
@@ -110,7 +110,7 @@ export default async function CaseStudyPage({ params }: Params) {
                 {study.services.map((s) => (
                   <li
                     key={s}
-                    className="rounded-full border border-line bg-surface px-4 py-2 font-display text-[0.88rem] text-body"
+                    className="rounded-full glass glass-edge px-4 py-2 font-display text-[0.88rem] text-body"
                   >
                     {s}
                   </li>
@@ -124,7 +124,7 @@ export default async function CaseStudyPage({ params }: Params) {
                 {study.stack.map((t) => (
                   <li
                     key={t}
-                    className="rounded-full border border-line px-3 py-1 font-mono text-[0.68rem] text-muted"
+                    className="rounded-full border border-line px-3 py-1 font-label text-[0.68rem] text-muted"
                   >
                     {t}
                   </li>
@@ -159,7 +159,7 @@ export default async function CaseStudyPage({ params }: Params) {
           className="group mt-6 flex flex-col gap-3"
           data-reveal
         >
-          <span className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted">
+          <span className="font-label text-[0.7rem] uppercase tracking-[0.14em] text-muted">
             {next.client} · {next.market}
           </span>
           <span className="max-w-3xl font-display text-[clamp(1.5rem,4vw,2.5rem)] font-semibold leading-tight tracking-tight text-bright transition-colors duration-500 group-hover:text-cobalt-lift">
