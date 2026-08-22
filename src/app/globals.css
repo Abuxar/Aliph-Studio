@@ -100,10 +100,12 @@
   /* Ambient depth field — neutral, not coloured. The background film
      supplies the colour; this only adds soft luminance variation and acts
      as the fallback backdrop if the video never loads. */
-  --aurora-1: rgba(10, 16, 32, 0.07);
-  --aurora-2: rgba(10, 16, 32, 0.05);
-  --aurora-3: rgba(10, 16, 32, 0.04);
-  --aurora-opacity: 0.9;
+  --aurora-1: rgba(10, 16, 32, 0.13);
+  --aurora-2: rgba(10, 16, 32, 0.09);
+  --aurora-3: rgba(10, 16, 32, 0.07);
+  --aurora-opacity: 1;
+  /* Slight lift at the top of the page so the ground is never flat. */
+  --ground-lift: #f6f8fb;
 
   /* Light needs a heavier scrim: the footage is dark, and dark video
      under near-black body copy fails contrast outright. */
@@ -142,10 +144,11 @@
   --nav-bg: rgba(6, 8, 15, 0.68);
   --spotlight: rgba(255, 255, 255, 0.07);
 
-  --aurora-1: rgba(255, 255, 255, 0.07);
-  --aurora-2: rgba(255, 255, 255, 0.05);
-  --aurora-3: rgba(255, 255, 255, 0.035);
-  --aurora-opacity: 0.9;
+  --aurora-1: rgba(255, 255, 255, 0.1);
+  --aurora-2: rgba(255, 255, 255, 0.075);
+  --aurora-3: rgba(255, 255, 255, 0.05);
+  --aurora-opacity: 1;
+  --ground-lift: #121722;
 
   --video-scrim: rgba(6, 8, 15, 0.6);
 
@@ -164,7 +167,12 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  background: var(--ground);
+  /* Layered, not flat: the lift keeps the ground from reading as dead black
+     on phones, where the background film is deliberately not loaded. */
+  background:
+    radial-gradient(115% 75% at 50% 0%, var(--ground-lift), transparent 62%),
+    var(--ground);
+  background-attachment: fixed;
 }
 
 html.lenis,

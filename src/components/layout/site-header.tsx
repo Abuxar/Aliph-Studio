@@ -155,10 +155,13 @@ export function SiteHeader() {
       <div
         id="mobile-nav"
         hidden={!open}
-        className="fixed inset-0 z-40 bg-[var(--ground)]/80 backdrop-blur-2xl nav:hidden"
+        className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-[var(--ground)]/92 backdrop-blur-2xl nav:hidden"
       >
+        {/* pt-24 clears the fixed header bar — centring alone put the first
+            item underneath it once the list grew past the viewport. min-h-full
+            keeps it centred when it does fit. */}
         <nav
-          className="container-page flex h-full flex-col justify-center gap-2 pb-24"
+          className="container-page flex min-h-full flex-col justify-center gap-2 pt-24 pb-28"
           aria-label="Mobile"
         >
           {nav.map((item, i) => (
