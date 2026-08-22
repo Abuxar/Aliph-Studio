@@ -36,7 +36,10 @@ export function ServicesScrub() {
       const mm = gsap.matchMedia();
 
       mm.add(
-        "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+        // Height is gated as well as width: a pinned section is locked to
+        // one screen, so on a short laptop viewport the heading plus the
+        // panel do not fit and the copy is clipped with no way to scroll it.
+        "(min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)",
         () => {
           const panels = gsap.utils.toArray<HTMLElement>("[data-service-panel]");
           if (panels.length === 0) return;
@@ -85,7 +88,7 @@ export function ServicesScrub() {
 
   return (
     <div ref={root} className="relative">
-      <div data-service-pin className="lg:min-h-screen lg:py-24">
+      <div data-service-pin className="lg:min-h-[100svh] lg:py-20">
         <div className="container-page py-[clamp(4.5rem,10vw,7rem)] lg:py-0">
           <SectionHeading
             index="01"

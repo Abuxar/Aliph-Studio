@@ -21,53 +21,69 @@ export function ProcessTrack() {
 
   useGSAP(
     () => {
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const wide = window.matchMedia("(min-width: 1024px)");
-      if (reduced.matches || !wide.matches) return;
+      const mm = gsap.matchMedia();
 
-      const track = root.current?.querySelector<HTMLElement>("[data-track]");
-      if (!track) return;
+      /**
+       * Pinning is gated on viewport HEIGHT as well as width. A pinned
+       * section is locked to one screen, so on a short laptop viewport the
+       * heading plus the cards do not fit and the content is cut off with
+       * nothing the reader can do about it. Below 700px tall we fall back to
+       * the same swipe carousel mobile gets, which scrolls normally.
+       */
+      mm.add(
+        "(min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const track = root.current?.querySelector<HTMLElement>("[data-track]");
+          if (!track) return;
 
-      const distance = () => track.scrollWidth - window.innerWidth * 0.82;
+          // How far the track must travel for its last card to reach the
+          // right edge. Clamped at 0 so a track that already fits cannot
+          // produce a negative scroll distance.
+          const distance = () =>
+            Math.max(0, track.scrollWidth - track.clientWidth);
 
-      gsap.to(track, {
-        x: () => -distance(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top top",
-          end: () => `+=${distance()}`,
-          pin: true,
-          scrub: 0.6,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-        },
-      });
-
-      // Progress rail fills with the track.
-      gsap.fromTo(
-        "[data-track-progress]",
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          ease: "none",
-          transformOrigin: "left center",
-          scrollTrigger: {
+          const shared = {
             trigger: root.current,
             start: "top top",
             end: () => `+=${distance()}`,
             scrub: 0.6,
             invalidateOnRefresh: true,
-          },
+          } as const;
+
+          gsap.to(track, {
+            x: () => -distance(),
+            ease: "none",
+            scrollTrigger: { ...shared, pin: true, anticipatePin: 1 },
+          });
+
+          // Progress rail fills with the track.
+          gsap.fromTo(
+            "[data-track-progress]",
+            { scaleX: 0 },
+            {
+              scaleX: 1,
+              ease: "none",
+              transformOrigin: "left center",
+              scrollTrigger: shared,
+            },
+          );
         },
       );
+
+      return () => mm.revert();
     },
     { scope: root },
   );
 
   return (
-    <section ref={root} className="relative overflow-hidden py-[clamp(4.5rem,10vw,7rem)] lg:min-h-screen lg:py-0">
-      <div className="lg:flex lg:min-h-screen lg:flex-col lg:justify-center lg:py-24">
+    /* `min-h` rather than a fixed screen height, and only where the section
+       is actually tall enough to pin — otherwise the section sizes to its
+       content and scrolls normally. */
+    <section
+      ref={root}
+      className="relative overflow-hidden py-[clamp(4rem,8vw,6rem)] lg:min-h-[100svh] lg:py-0"
+    >
+      <div className="flex flex-col justify-center lg:min-h-[100svh] lg:py-16">
         <div className="container-page">
           <SectionHeading
             index="03"
@@ -79,7 +95,7 @@ export function ProcessTrack() {
         </div>
 
         {/* Rail */}
-        <div className="container-page mt-12 hidden lg:block">
+        <div className="container-page mt-10 hidden lg:block">
           <div className="relative h-px w-full bg-line">
             <span
               data-track-progress
@@ -90,7 +106,7 @@ export function ProcessTrack() {
         </div>
 
         {/* Track — horizontal on desktop, swipe carousel on mobile. */}
-        <div className="mt-10 lg:mt-14 lg:overflow-hidden">
+        <div className="mt-8 lg:mt-10 lg:overflow-hidden">
           <ol
             data-track
             className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-[clamp(1.25rem,5vw,4rem)] pb-4 lg:snap-none lg:overflow-visible lg:pb-0"
@@ -98,7 +114,7 @@ export function ProcessTrack() {
             {processSteps.map((step, i) => (
               <li
                 key={step.title}
-                className="flex w-[78vw] shrink-0 snap-start flex-col gap-4 glass glass-edge rounded-2xl p-7 sm:w-[62vw] md:w-[44vw] lg:w-[28rem] lg:p-9"
+                className="flex w-[78vw] shrink-0 snap-start flex-col gap-3.5 glass glass-edge rounded-2xl p-6 sm:w-[62vw] md:w-[44vw] lg:w-[26rem] lg:p-8"
               >
                 <div className="flex items-baseline justify-between gap-4">
                   <span className="font-label text-[0.72rem] tabular-nums text-gold">
