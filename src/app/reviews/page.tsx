@@ -20,8 +20,8 @@ export const metadata = buildMetadata({
  * Google does not award review rich results to self-serving reviews — those a
  * business publishes about itself on its own site — and marking up
  * unverifiable testimonials as Review data risks a manual action rather than
- * a star rating. Ratings belong on third-party profiles (Clutch, GoodFirms,
- * Google Business Profile), which is where the `sameAs` links point.
+ * a star rating. Ratings belong on third-party profiles (Google Business
+ * Profile, Facebook, LinkedIn), which is where the `sameAs` links point.
  */
 export default function ReviewsPage() {
   return (
@@ -69,13 +69,13 @@ export default function ReviewsPage() {
           <p className="eyebrow">Independent profiles</p>
           <p className="max-w-2xl text-[1rem] leading-relaxed text-body">
             Reviews published on our own site are, unavoidably, ones we chose.
-            For ratings we cannot edit, our profiles on the directories where
-            buyers actually shortlist are the better source.
+            For ratings we cannot edit, our public profiles are the better
+            source — recommendations there are left by clients, not by us.
           </p>
 
           <ul className="mt-2 flex flex-wrap gap-3">
             {[
-              { label: "Clutch", href: site.social.clutch },
+              { label: "Facebook", href: site.social.facebook },
               { label: "LinkedIn", href: site.social.linkedin },
             ].map((item) => (
               <li key={item.label}>

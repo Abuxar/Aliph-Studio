@@ -57,7 +57,7 @@ export const site = {
     linkedin: "https://www.linkedin.com/company/aliph-studio",
     github: "https://github.com/Abuxar",
     instagram: "https://www.instagram.com/aliph.studio",
-    clutch: "https://clutch.co/profile/aliph-studio",
+    facebook: "https://www.facebook.com/aliphstudio",
   },
 
   /** Markets we actively sell into — drives the "where we work" section. */
@@ -95,9 +95,13 @@ export const whatsappHref = `https://wa.me/${site.whatsapp.intl}?text=${encodeUR
 export const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
 
 export const nav = [
-  { label: "Services", href: "/services" },
-  { label: "Process", href: "/process" },
-  { label: "Reviews", href: "/reviews" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  {
+    label: "Services",
+    href: "/services",
+    hint: "Web, apps, search and marketing",
+  },
+  { label: "Process", href: "/process", hint: "How an engagement runs" },
+  { label: "Reviews", href: "/reviews", hint: "What clients say, attributed" },
+  { label: "About", href: "/about", hint: "Who you would be working with" },
+  { label: "Contact", href: "/contact", hint: "Tell us what you are building" },
 ] as const;

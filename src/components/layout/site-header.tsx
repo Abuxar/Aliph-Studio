@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { nav } from "@/lib/site";
+import { nav, site } from "@/lib/site";
 import { Wordmark } from "@/components/ui/logo";
 import { ButtonLink } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { WhatsAppLink } from "@/components/ui/whatsapp";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -151,42 +152,119 @@ export function SiteHeader() {
         </div>
       </header>
 
-      {/* Mobile sheet */}
+      {/* ------------------------------------------------------------------
+          Mobile sheet.
+
+          Kept mounted rather than toggled with `hidden`, so the entrance can
+          actually transition — a display:none element has nothing to animate
+          from. `inert` handles what `hidden` was doing for accessibility:
+          while closed, nothing inside is focusable or reachable by a screen
+          reader, so the sheet cannot become a keyboard trap behind the page.
+          ------------------------------------------------------------------ */}
       <div
         id="mobile-nav"
-        hidden={!open}
-        className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-[var(--ground)]/92 backdrop-blur-2xl nav:hidden"
+        inert={!open}
+        className={`fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-[var(--ground)]/92 backdrop-blur-2xl transition-[opacity,visibility] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] nav:hidden ${
+          open ? "visible opacity-100" : "invisible opacity-0"
+        }`}
       >
-        {/* pt-24 clears the fixed header bar — centring alone put the first
-            item underneath it once the list grew past the viewport. min-h-full
-            keeps it centred when it does fit. */}
-        <nav
-          className="container-page flex min-h-full flex-col justify-center gap-2 pt-24 pb-28"
-          aria-label="Mobile"
-        >
-          {nav.map((item, i) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="group flex items-baseline gap-4 border-b border-line py-5 font-display text-[1.75rem] font-semibold tracking-tight text-bright"
-            >
-              <span className="font-label text-[0.72rem] tabular-nums text-gold">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1">
-                {item.label}
-              </span>
-            </Link>
-          ))}
+        {/* pb-24 keeps the last line clear of the floating chat pill. */}
+        <div className="container-page flex min-h-full flex-col pt-24 pb-24">
+          <p className="eyebrow mb-5">Menu</p>
 
-          <div className="mt-8" onClick={() => setOpen(false)}>
-            <ButtonLink href="/contact" arrow className="w-full">
-              Start a project
-            </ButtonLink>
+          <nav aria-label="Mobile" className="flex flex-col gap-2.5">
+            {nav.map((item, i) => {
+              const active = pathname.startsWith(item.href);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  // Staggered rise. Delay only on the way in; closing snaps
+                  // back together so the sheet does not unravel item by item.
+                  style={{ transitionDelay: open ? `${80 + i * 55}ms` : "0ms" }}
+                  className={`glass glass-edge relative flex items-center gap-4 rounded-2xl p-4 transition-[opacity,transform,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.99] ${
+                    open
+                      ? "translate-y-0 opacity-100"
+                      : "translate-y-4 opacity-0"
+                  } ${active ? "border-[var(--line-strong)]" : ""}`}
+                >
+                  <span
+                    className={`font-label text-[0.68rem] tabular-nums ${
+                      active ? "text-cobalt-lift" : "text-gold"
+                    }`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+
+                  <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <span className="font-display text-[1.3rem] font-semibold leading-none tracking-tight text-bright">
+                      {item.label}
+                    </span>
+                    <span className="truncate text-[0.8rem] leading-snug text-muted">
+                      {item.hint}
+                    </span>
+                  </span>
+
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    aria-hidden="true"
+                    className={`shrink-0 transition-colors duration-300 ${
+                      active ? "text-cobalt-lift" : "text-faint"
+                    }`}
+                  >
+                    <path
+                      d="M2 7h10M8 3l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Pushed to the bottom of the sheet on tall screens. */}
+          <div
+            style={{ transitionDelay: open ? "420ms" : "0ms" }}
+            className={`mt-auto flex flex-col gap-5 pt-10 transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+            }`}
+          >
+            <div onClick={() => setOpen(false)}>
+              <ButtonLink href="/contact" arrow className="w-full">
+                Start a project
+              </ButtonLink>
+            </div>
+
+            <div className="hairline" />
+
+            <div className="flex flex-col gap-3">
+              <WhatsAppLink
+                className="text-[0.92rem] text-body"
+                label={`WhatsApp ${site.whatsapp.display}`}
+              />
+              <a
+                href={`mailto:${site.contact.email}`}
+                className="text-[0.92rem] text-body transition-colors hover:text-bright"
+              >
+                {site.contact.email}
+              </a>
+              <p className="font-label text-[0.7rem] uppercase tracking-[0.16em] text-faint">
+                {site.contact.street} · {site.contact.locality}
+              </p>
+            </div>
           </div>
-        </nav>
+        </div>
       </div>
+
     </>
   );
 }
