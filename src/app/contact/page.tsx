@@ -84,12 +84,6 @@ export default function ContactPage() {
                 >
                   {site.contact.email}
                 </a>
-                <a
-                  href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
-                  className="text-[0.95rem] text-body transition-colors hover:text-bright"
-                >
-                  {site.contact.phone}
-                </a>
                 <WhatsAppLink
                   className="text-[0.95rem] text-body"
                   label={`WhatsApp ${site.whatsapp.display}`}

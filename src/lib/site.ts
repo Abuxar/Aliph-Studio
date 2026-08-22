@@ -5,6 +5,9 @@
  * Business Profile and in every directory listing. Inconsistent NAP is the
  * most common cause of weak local ranking.
  *
+ * There is no separate landline: WhatsApp is the phone channel, so
+ * `whatsapp.display` is the number shown and the one used in schema.
+ *
  * TODO(aliph): replace the PLACEHOLDER values before launch.
  */
 export const site = {
@@ -18,9 +21,7 @@ export const site = {
   founded: "2024",
 
   contact: {
-    email: "hello@aliph.studio",
-    // PLACEHOLDER — use full international format, e.g. "+92 300 1234567"
-    phone: "+92 300 0000000",
+    email: "thealiphstudio@gmail.com",
     // PLACEHOLDER — the exact street address registered on your Google Business Profile
     street: "DHA Phase 3",
     locality: "Lahore",

@@ -21,7 +21,8 @@ export function organizationSchema() {
     description: site.description,
     url: site.url,
     email: site.contact.email,
-    telephone: site.contact.phone,
+    // Local SEO leans on a telephone being present; WhatsApp is the number.
+    telephone: `+${site.whatsapp.intl}`,
     foundingDate: site.founded,
     priceRange: "$$",
     image: abs("/opengraph-image"),

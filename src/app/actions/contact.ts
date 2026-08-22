@@ -103,7 +103,10 @@ export async function submitContact(
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { error } = await resend.emails.send({
-      from: process.env.CONTACT_FROM_EMAIL ?? "Aliph Studio <hello@aliph.studio>",
+      // Resend only sends from a verified domain, so this fallback must not
+      // be the public Gmail address — that send would be rejected outright.
+      from:
+        process.env.CONTACT_FROM_EMAIL ?? "Aliph Studio <onboarding@resend.dev>",
       to: process.env.CONTACT_TO_EMAIL ?? site.contact.email,
       replyTo: email,
       subject: `New enquiry — ${name}${company ? ` (${company})` : ""}`,

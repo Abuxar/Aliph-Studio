@@ -1,5 +1,6 @@
 import { site } from "@/lib/site";
 import { Section, SectionHeading } from "@/components/ui/section";
+import { WhatsAppLink } from "@/components/ui/whatsapp";
 
 /**
  * The local + international signal in one section.
@@ -45,12 +46,7 @@ export function Location({ index = "07" }: { index?: string }) {
               {site.contact.email}
             </a>
             <br />
-            <a
-              href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
-              className="transition-colors hover:text-bright"
-            >
-              {site.contact.phone}
-            </a>
+            <WhatsAppLink className="mt-1 text-body" />
           </address>
         </div>
 

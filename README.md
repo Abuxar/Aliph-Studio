@@ -106,7 +106,9 @@ Rules the codebase holds to:
 
 Placeholders that must be replaced — search for `PLACEHOLDER`:
 
-- [ ] Real phone number and exact street address in `src/lib/site.ts`
+- [ ] Exact street address in `src/lib/site.ts` (the phone channel is WhatsApp)
+- [ ] Verify a sending domain in Resend — `CONTACT_FROM_EMAIL` cannot be a
+      Gmail address, only a domain you own
 - [ ] Real case studies and testimonials (`placeholder: true` marks the drafts)
 - [ ] Verified sending domain in Resend
 - [ ] Legal review of `/privacy` and `/terms`
