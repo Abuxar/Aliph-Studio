@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { services } from "@/lib/content";
-import { AlifMark } from "@/components/ui/logo";
+import { Wordmark } from "@/components/ui/logo";
 import { WhatsAppLink } from "@/components/ui/whatsapp";
 
 const company = [
@@ -26,7 +26,7 @@ export function SiteFooter() {
           {/* Identity + NAP. This address block is the canonical NAP —
               it must match the Google Business Profile character for character. */}
           <div className="flex flex-col gap-5">
-            <AlifMark className="h-9 w-auto text-cobalt-lift" />
+            <Wordmark className="items-start text-bright" />
             <p className="max-w-xs text-[0.95rem] leading-relaxed text-body">
               A development studio in Lahore building web platforms, mobile
               apps and search programmes for clients across four markets.

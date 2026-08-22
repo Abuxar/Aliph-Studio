@@ -232,6 +232,13 @@ p { text-wrap: pretty; }
   letter-spacing: -0.012em;
 }
 
+/* Upright cut of the accent face — used by the logotype. */
+@utility serif {
+  font-family: var(--font-accent);
+  font-style: normal;
+  font-weight: 400;
+}
+
 @utility eyebrow {
   font-family: var(--font-label);
   font-weight: 500;

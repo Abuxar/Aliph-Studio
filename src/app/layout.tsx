@@ -23,10 +23,11 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+// Both cuts: upright carries the logotype, italic carries headline emphasis.
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  style: "italic",
+  style: ["normal", "italic"],
   display: "swap",
   variable: "--font-instrument-serif",
 });
