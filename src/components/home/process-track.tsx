@@ -81,9 +81,9 @@ export function ProcessTrack() {
        content and scrolls normally. */
     <section
       ref={root}
-      className="relative overflow-hidden py-[clamp(4rem,8vw,6rem)] lg:min-h-[100svh] lg:py-0"
+      className="relative overflow-hidden py-[clamp(4rem,8vw,6rem)] scrub:min-h-[100svh] scrub:py-0"
     >
-      <div className="flex flex-col justify-center lg:min-h-[100svh] lg:py-16">
+      <div className="flex flex-col justify-center scrub:min-h-[100svh] scrub:py-16">
         <div className="container-page">
           <SectionHeading
             index="03"
@@ -95,7 +95,7 @@ export function ProcessTrack() {
         </div>
 
         {/* Rail */}
-        <div className="container-page mt-10 hidden lg:block">
+        <div className="container-page mt-10 hidden scrub:block">
           <div className="relative h-px w-full bg-line">
             <span
               data-track-progress
@@ -106,15 +106,15 @@ export function ProcessTrack() {
         </div>
 
         {/* Track — horizontal on desktop, swipe carousel on mobile. */}
-        <div className="mt-8 lg:mt-10 lg:overflow-hidden">
+        <div className="mt-8 scrub:mt-10 scrub:overflow-hidden">
           <ol
             data-track
-            className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-[clamp(1.25rem,5vw,4rem)] pb-4 lg:snap-none lg:overflow-visible lg:pb-0"
+            className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-[clamp(1.25rem,5vw,4rem)] pb-4 scrub:snap-none scrub:overflow-visible scrub:pb-0"
           >
             {processSteps.map((step, i) => (
               <li
                 key={step.title}
-                className="flex w-[78vw] shrink-0 snap-start flex-col gap-3.5 glass glass-edge rounded-2xl p-6 sm:w-[62vw] md:w-[44vw] lg:w-[26rem] lg:p-8"
+                className="flex w-[78vw] shrink-0 snap-start flex-col gap-3.5 glass glass-edge rounded-2xl p-6 sm:w-[62vw] md:w-[44vw] scrub:w-[26rem] scrub:p-8"
               >
                 <div className="flex items-baseline justify-between gap-4">
                   <span className="font-label text-[0.72rem] tabular-nums text-gold">

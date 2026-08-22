@@ -3,6 +3,25 @@
 /* Tell Tailwind that `dark:` follows the class next-themes stamps on <html>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/**
+ * The pinned-set-piece breakpoint.
+ *
+ * Pinning needs room in BOTH axes, so the layout that supports it must be
+ * gated on the same condition as the JavaScript that drives it. Using `lg:`
+ * for the layout and a height-aware matchMedia for the script lets the two
+ * disagree — on a short wide viewport the panels stack into one grid cell
+ * while the script that hides the inactive ones never runs, and all of them
+ * render on top of each other.
+ *
+ * Must stay in sync with the gsap.matchMedia queries in services-scrub.tsx
+ * and process-track.tsx.
+ */
+@custom-variant scrub {
+  @media (min-width: 1024px) and (min-height: 700px) {
+    @slot;
+  }
+}
+
 /* ============================================================
    Aliph Studio — design tokens
    ============================================================

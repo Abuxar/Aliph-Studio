@@ -26,6 +26,11 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  * `gsap.matchMedia` scopes the desktop behaviour to the breakpoint and
  * reverts every tween it created when the query stops matching, so resizing
  * across the boundary cannot leave a panel stuck hidden.
+ *
+ * The layout uses the `scrub:` variant, NOT `lg:`, and its query must match
+ * the matchMedia query below exactly. If the two ever diverge, a viewport
+ * that satisfies one but not the other stacks the panels without running the
+ * script that hides them — and all five render on top of each other.
  */
 export function ServicesScrub() {
   const root = useRef<HTMLDivElement>(null);
@@ -88,8 +93,8 @@ export function ServicesScrub() {
 
   return (
     <div ref={root} className="relative">
-      <div data-service-pin className="lg:min-h-[100svh] lg:py-20">
-        <div className="container-page py-[clamp(4.5rem,10vw,7rem)] lg:py-0">
+      <div data-service-pin className="scrub:min-h-[100svh] scrub:py-20">
+        <div className="container-page py-[clamp(4.5rem,10vw,7rem)] scrub:py-0">
           <SectionHeading
             index="01"
             eyebrow="What we do"
@@ -98,9 +103,9 @@ export function ServicesScrub() {
             lede="No handoffs between an agency that plans and a contractor that builds. The people who scope your project are the people who ship it."
           />
 
-          <div className="mt-14 grid gap-10 lg:mt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] lg:gap-16">
+          <div className="mt-14 grid gap-10 scrub:mt-16 scrub:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] scrub:gap-16">
             {/* Index rail — desktop only; it tracks the scrub. */}
-            <ol className="hidden flex-col gap-1 lg:flex" aria-hidden="true">
+            <ol className="hidden flex-col gap-1 scrub:flex" aria-hidden="true">
               {services.map((service, i) => (
                 <li
                   key={service.slug}
@@ -124,14 +129,14 @@ export function ServicesScrub() {
                 scrub only changes which one is forward. On desktop they share
                 one grid cell, so the container tracks the tallest panel and no
                 copy can overflow a hard-coded height. */}
-            <div className="flex flex-col gap-5 lg:grid lg:gap-0">
+            <div className="flex flex-col gap-5 scrub:grid scrub:gap-0">
               {services.map((service, i) => (
                 <article
                   key={service.slug}
                   data-service-panel
-                  className="glass glass-edge flex flex-col gap-5 rounded-2xl p-7 lg:[grid-area:1/1] lg:p-9"
+                  className="glass glass-edge flex flex-col gap-5 rounded-2xl p-7 scrub:[grid-area:1/1] scrub:p-9"
                 >
-                  <p className="eyebrow lg:hidden">
+                  <p className="eyebrow scrub:hidden">
                     {String(i + 1).padStart(2, "0")}
                   </p>
 
