@@ -7,6 +7,7 @@ import { WhatsAppLink } from "@/components/ui/whatsapp";
 const company = [
   { label: "Work", href: "/work" },
   { label: "Process", href: "/process" },
+  { label: "Reviews", href: "/reviews" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

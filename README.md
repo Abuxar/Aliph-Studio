@@ -65,7 +65,7 @@ Almost everything is data, not markup:
 ## Routes
 
 `/` · `/services` · `/services/[slug]` (5) · `/work` · `/work/[slug]` (3) ·
-`/process` · `/about` · `/contact` · `/privacy` · `/terms` · 404
+`/process` · `/reviews` · `/about` · `/contact` · `/privacy` · `/terms` · 404
 
 Not yet built, and deliberately absent from the sitemap so nothing 404s:
 **`/blog`** and **`/careers`**. The blog matters commercially — it is the
